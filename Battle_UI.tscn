@@ -1,0 +1,76 @@
+[gd_scene load_steps=3 format=3 uid="uid://m75855yor383"]
+
+[ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/battle_ui.gd" id="1_vtsni"]
+[ext_resource type="PackedScene" uid="uid://cwrco0nxffyaq" path="res://Godot-Turn-Based-Battle-System-3D/actor_box.tscn" id="2_c23cx"]
+
+[node name="Battle_UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vtsni")
+actor_box = ExtResource("2_c23cx")
+
+[node name="ActorContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.008
+anchor_top = 0.012
+anchor_right = 0.187
+anchor_bottom = 0.426
+offset_left = -0.216001
+offset_top = 0.224
+offset_right = 0.575989
+offset_bottom = -0.0480042
+
+[node name="Actions" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -202.0
+offset_top = -242.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Attack" type="Button" parent="Actions"]
+layout_mode = 2
+text = "Attack"
+
+[node name="Skills" type="Button" parent="Actions"]
+layout_mode = 2
+text = "Skills"
+
+[node name="Items" type="Button" parent="Actions"]
+layout_mode = 2
+text = "Items"
+
+[node name="SkillsItems" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -408.0
+offset_top = -242.0
+offset_right = -206.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Targets" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -636.0
+offset_top = -242.0
+offset_right = -434.0
+grow_horizontal = 0
+grow_vertical = 0

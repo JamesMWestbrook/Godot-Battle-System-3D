@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwrco0nxffyaq"]
+
+[ext_resource type="Texture2D" uid="uid://cg6rjbj1cdmd6" path="res://Godot-Turn-Based-Battle-System-3D/icon.svg" id="1_c6kex"]
+[ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/actor_box.gd" id="1_k7s3r"]
+
+[node name="ActorBox" type="HBoxContainer"]
+script = ExtResource("1_k7s3r")
+
+[node name="Stats" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="Stats"]
+custom_minimum_size = Vector2(157, 0)
+layout_mode = 2
+text = "Name"
+horizontal_alignment = 2
+
+[node name="HPBox" type="HBoxContainer" parent="Stats"]
+layout_mode = 2
+
+[node name="HP" type="Label" parent="Stats/HPBox"]
+layout_mode = 2
+text = "HP:"
+
+[node name="HPValue" type="Label" parent="Stats/HPBox"]
+custom_minimum_size = Vector2(125.41, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+text = "9999/9999"
+horizontal_alignment = 2
+
+[node name="MPBox" type="HBoxContainer" parent="Stats"]
+layout_mode = 2
+
+[node name="MP" type="Label" parent="Stats/MPBox"]
+layout_mode = 2
+text = "HP:"
+
+[node name="MPValue" type="Label" parent="Stats/MPBox"]
+custom_minimum_size = Vector2(125.41, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+text = "9999/9999"
+horizontal_alignment = 2
+
+[node name="Statuses" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ExampleStatus" type="TextureRect" parent="Statuses"]
+visible = false
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+texture = ExtResource("1_c6kex")
+expand_mode = 1
+stretch_mode = 4

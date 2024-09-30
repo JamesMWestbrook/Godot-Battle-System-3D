@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://bkuxveu0r6mjm"]
+
+[ext_resource type="PackedScene" uid="uid://bkcejxlt4kykg" path="res://Godot-Turn-Based-Battle-System-3D/TestActors/Assets/moon.glb" id="1_4ahc1"]
+[ext_resource type="ArrayMesh" uid="uid://brqaofh7wyn7l" path="res://Godot-Turn-Based-Battle-System-3D/TestActors/Assets/sparkle.res" id="2_drq5c"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6omhe"]
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(0.55, 0.54225, 0.53325, 1)
+sky_energy_multiplier = 0.7
+ground_horizon_color = Color(0.55, 0.54225, 0.53325, 1)
+
+[sub_resource type="Sky" id="Sky_efu2b"]
+sky_material = SubResource("ProceduralSkyMaterial_6omhe")
+
+[sub_resource type="Environment" id="Environment_mw1r8"]
+background_mode = 2
+sky = SubResource("Sky_efu2b")
+tonemap_mode = 2
+
+[sub_resource type="Curve" id="Curve_0xevs"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.214286, 0.956044), 0.0, 0.0, 0, 0, Vector2(0.87395, 0.956044), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_rup6g"]
+curve = SubResource("Curve_0xevs")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g6a4v"]
+emission_shape_scale = Vector3(1.665, 2, 1.17)
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 0, 0)
+color = Color(0, 0, 0, 1)
+alpha_curve = SubResource("CurveTexture_rup6g")
+
+[node name="moon" instance=ExtResource("1_4ahc1")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="0"]
+environment = SubResource("Environment_mw1r8")
+
+[node name="Camera3D" type="Camera3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.29276, 4.40274)
+
+[node name="Node3D" type="Node3D" parent="." index="4"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.552665, 2.60241, 0)
+amount = 50
+lifetime = 10.0
+preprocess = 20.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_g6a4v")
+draw_pass_1 = ExtResource("2_drq5c")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.85675, 3.91432)

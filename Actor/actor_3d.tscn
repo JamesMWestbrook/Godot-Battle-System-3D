@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://dbo6vy4oej6fo"]
+
+[ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Actor.gd" id="1_htw0o"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="2_l2ydx"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_sck23"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="4_grm24"]
+
+[sub_resource type="Resource" id="Resource_15bb3"]
+script = ExtResource("3_sck23")
+duration = 1.0
+transition = 0
+ease = 2
+
+[sub_resource type="Resource" id="Resource_egbt8"]
+script = ExtResource("4_grm24")
+cull_mask = 1048575
+h_offset = 0.0
+v_offset = 0.0
+projection = 0
+fov = 75.0
+size = 1.0
+frustum_offset = Vector2(0, 0)
+near = 0.05
+far = 4000.0
+
+[node name="Actor3D" type="Node3D"]
+script = ExtResource("1_htw0o")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="PhantomCamera3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01124, 1.85532)
+script = ExtResource("2_l2ydx")
+tween_resource = SubResource("Resource_15bb3")
+camera_3d_resource = SubResource("Resource_egbt8")

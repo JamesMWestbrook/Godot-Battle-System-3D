@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbu0a83k5wfak"]
+
+[ext_resource type="PackedScene" uid="uid://dbo6vy4oej6fo" path="res://Godot-Turn-Based-Battle-System-3D/Actor/actor_3d.tscn" id="1_jmu70"]
+[ext_resource type="PackedScene" uid="uid://bkuxveu0r6mjm" path="res://Godot-Turn-Based-Battle-System-3D/TestActors/Assets/moon.tscn" id="2_f7s7q"]
+
+[node name="TakeyaMoon" instance=ExtResource("1_jmu70")]
+actor_name = "Takeya"
+max_hp = 40
+max_mp = 50
+str = 2
+mag = 2
+def = 2
+agi = 3
+eva = 2
+
+[node name="PhantomCamera3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.42673, 5.05135)
+
+[node name="moon" parent="." index="2" instance=ExtResource("2_f7s7q")]

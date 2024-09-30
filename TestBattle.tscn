@@ -1,0 +1,68 @@
+[gd_scene load_steps=13 format=3 uid="uid://bh63vmjwwes0k"]
+
+[ext_resource type="PackedScene" uid="uid://css4itld57jwc" path="res://Godot-Turn-Based-Battle-System-3D/BattleBase.tscn" id="1_ym3ud"]
+[ext_resource type="PackedScene" uid="uid://cbu0a83k5wfak" path="res://Godot-Turn-Based-Battle-System-3D/TestActors/Heros/takeya_moon.tscn" id="3_5af88"]
+[ext_resource type="PackedScene" uid="uid://cu6sak2j4sykn" path="res://Godot-Turn-Based-Battle-System-3D/TestActors/Baddies/sword.tscn" id="4_4ymsx"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="4_or42l"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_5mbjd"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="6_wkejq"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_bpnic"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_35qmn"]
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(0.55, 0.54225, 0.53325, 1)
+sky_energy_multiplier = 0.7
+ground_horizon_color = Color(0.55, 0.54225, 0.53325, 1)
+
+[sub_resource type="Sky" id="Sky_q1g5u"]
+sky_material = SubResource("ProceduralSkyMaterial_35qmn")
+
+[sub_resource type="Environment" id="Environment_cv370"]
+background_mode = 2
+sky = SubResource("Sky_q1g5u")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="Resource" id="Resource_jbrov"]
+script = ExtResource("5_5mbjd")
+duration = 1.0
+transition = 0
+ease = 2
+
+[sub_resource type="Resource" id="Resource_ps1el"]
+script = ExtResource("6_wkejq")
+cull_mask = 1048575
+h_offset = 0.0
+v_offset = 0.0
+projection = 0
+fov = 75.0
+size = 1.0
+frustum_offset = Vector2(0, 0)
+near = 0.05
+far = 4000.0
+
+[node name="Battle" instance=ExtResource("1_ym3ud")]
+process_priority = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="0"]
+environment = SubResource("Environment_cv370")
+
+[node name="TakeyaMoon" parent="Heroes" index="0" instance=ExtResource("3_5af88")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Sword" parent="Enemies" index="0" instance=ExtResource("4_4ymsx")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="PhantomCamera3D" type="Node3D" parent="." index="5"]
+transform = Transform3D(0.999996, 0.000694287, -0.00261465, 0.000667601, 0.87328, 0.487219, 0.00262159, -0.487219, 0.873276, 13.8495, 9.07781, 16.0253)
+script = ExtResource("4_or42l")
+priority = 1
+tween_resource = SubResource("Resource_jbrov")
+camera_3d_resource = SubResource("Resource_ps1el")
+
+[node name="Camera3D" type="Camera3D" parent="." index="6"]
+transform = Transform3D(0.999996, 0.000694287, -0.00261465, 0.000667601, 0.87328, 0.487219, 0.00262159, -0.487219, 0.873276, 13.8495, 9.07781, 16.0253)
+current = true
+
+[node name="PhantomCameraHost" type="Node" parent="Camera3D" index="0"]
+script = ExtResource("7_bpnic")
