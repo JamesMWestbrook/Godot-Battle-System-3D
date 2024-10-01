@@ -5,7 +5,8 @@ class_name BattleManager
 @export var default_attack:Skill
 
 var current_actor:Actor
-
+var current_skill:Skill
+var current_target:Actor
 #Nodes
 @export var battle_ui:BattleUI
 
@@ -72,9 +73,27 @@ func _use_skill(skill:Skill, enemy: Actor)-> void:
 	battle_ui.targets_container.hide()
 	battle_ui._clear_lists()
 	printt(current_actor.actor_name, "uses", skill.skill_name,"on",enemy.actor_name)
+	current_skill = skill
+	current_target = enemy
 	
+	#Run animation
+	current_actor.animation_player.play(Constants.ATTACK_ANIM)
+	
+func _skill_stats():
 	#Run Skill
-	
+	print("Before attack, hp: ", current_target.hp)
+	var modifier:int
+	if current_skill.stat_modifier == Skill.STAT.STR:
+		modifier = current_actor.str + current_actor.str_mod
+	elif current_skill.stat_modifier == Skill.STAT.MAG:
+		modifier = current_actor.mag + current_actor.mag_mod
+	var difference = modifier * current_skill.attack_strength - (current_target.def + current_target.def_mod)
+	current_target._show_damage(difference)
+	current_target.hp -= difference
+	current_target.hp = abs(current_target.hp)
+	print("After attack, hp: ", current_target.hp)
+
+func _end_turn():
 	#Progress to next person 
 	turn_order.remove_at(0)
 	_start_turn()

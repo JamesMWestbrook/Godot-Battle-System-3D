@@ -47,7 +47,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.552665, 2.60241, 0)
 amount = 50
 lifetime = 10.0
 preprocess = 20.0
-local_coords = true
 process_material = SubResource("ParticleProcessMaterial_g6a4v")
 draw_pass_1 = ExtResource("2_drq5c")
 

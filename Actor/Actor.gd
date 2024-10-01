@@ -5,6 +5,9 @@ class_name Actor
 #Mod is short for modifier. For used when buffing/debuffing an actor's stats.
 @onready var animation_player:AnimationPlayer = $"AnimationPlayer"
 @onready var closeup_camera:PhantomCamera3D = $PhantomCamera3D
+@onready var damage_label: Label3D = $DamageLabel
+@onready var label_anim:AnimationPlayer = $DamageLabel/LabelAnimation
+
 var battle_manager:BattleManager
 
 @export_group("Info")
@@ -62,3 +65,17 @@ var actor_box:ActorBox
 func _ready() -> void:
 	hp = max_hp
 	mp = max_mp
+	$AnimationPlayer.play(Constants.IDLE_ANIM)
+
+
+func _hit():
+	battle_manager._skill_stats()
+
+func _show_damage(value:int):
+	damage_label.text = str(value)
+	label_anim.play(Constants.DAMAGE_LABEL_ANIM)
+	
+	
+func _finish_attack():
+	battle_manager._end_turn()
+	animation_player.play(Constants.IDLE_ANIM)

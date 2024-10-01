@@ -1,17 +1,94 @@
-[gd_scene load_steps=3 format=3 uid="uid://cbu0a83k5wfak"]
+[gd_scene load_steps=7 format=3 uid="uid://cbu0a83k5wfak"]
 
 [ext_resource type="PackedScene" uid="uid://dbo6vy4oej6fo" path="res://Godot-Turn-Based-Battle-System-3D/Actor/actor_3d.tscn" id="1_jmu70"]
 [ext_resource type="PackedScene" uid="uid://bkuxveu0r6mjm" path="res://Godot-Turn-Based-Battle-System-3D/TestActors/Assets/moon.tscn" id="2_f7s7q"]
+
+[sub_resource type="Animation" id="Animation_xvx56"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0)
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_03kk1"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 3.14159), Vector3(0, 0, 6.28319)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.633333, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_hit"
+}, {
+"args": [],
+"method": &"_finish_attack"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_nands"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.5, 1, 0, 1, 0, 1, 1, 0, 0, 0)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3lx2u"]
+_data = {
+"RESET": SubResource("Animation_xvx56"),
+"attack": SubResource("Animation_03kk1"),
+"idle": SubResource("Animation_nands")
+}
 
 [node name="TakeyaMoon" instance=ExtResource("1_jmu70")]
 actor_name = "Takeya"
 max_hp = 40
 max_mp = 50
-str = 2
+str = 4
 mag = 2
 def = 2
 agi = 3
 eva = 2
+
+[node name="AnimationPlayer" parent="." index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_3lx2u")
+}
 
 [node name="PhantomCamera3D" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.42673, 5.05135)
