@@ -34,7 +34,7 @@ layout_mode = 2
 
 [node name="MP" type="Label" parent="Stats/MPBox"]
 layout_mode = 2
-text = "HP:"
+text = "MP:"
 
 [node name="MPValue" type="Label" parent="Stats/MPBox"]
 custom_minimum_size = Vector2(125.41, 0)

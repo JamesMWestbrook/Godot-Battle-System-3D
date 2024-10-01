@@ -5,7 +5,7 @@ class_name Actor
 #Mod is short for modifier. For used when buffing/debuffing an actor's stats.
 @onready var animation_player:AnimationPlayer = $"AnimationPlayer"
 @onready var closeup_camera:PhantomCamera3D = $PhantomCamera3D
-
+var battle_manager:BattleManager
 
 @export_group("Info")
 @export var actor_name:String
@@ -72,3 +72,9 @@ var eva_mod:int
 
 var is_actor:bool = false
 var actor_box:ActorBox
+@export_group("AI")
+@export var ai_script:ActorAI
+
+func _ready() -> void:
+	hp = max_hp
+	mp = max_mp

@@ -24,11 +24,8 @@ func sort_agility(a:Actor,b:Actor) -> bool:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#needs to give Battle_UI a chance to have its child nodes enter the tree
-	await get_tree().process_frame
-	
 	_setup_actors()
-	battle_ui.attack_button.button_down.connect(battle_ui._select_skill.bind(default_attack))
+	
 	
 	
 	
@@ -45,9 +42,9 @@ func _setup_actors()-> void:
 	
 	viable_actors.append_array(enemies)
 	viable_actors.append_array(heroes)
-	
-	
-	
+	for actor in viable_actors:
+		actor.battle_manager = self
+	await get_tree().process_frame
 	_start_turn()
 
 #Round = everyone has had a turn
@@ -63,14 +60,21 @@ func _start_turn() -> void:
 	print(current_actor.actor_name + "'s turn")
 	if turn_order[0].is_actor:
 		_player_turn()
-	else:
-		pass
+	else:#Run AI
+		turn_order[0].ai_script._act()
 
 func _player_turn()-> void:
 	battle_ui._menu(current_actor)
 
 
-	
+#Actor has used skill, run skill then proceed to next person 
 func _use_skill(skill:Skill, enemy: Actor)-> void:
+	battle_ui.targets_container.hide()
+	battle_ui._clear_lists()
 	printt(current_actor.actor_name, "uses", skill.skill_name,"on",enemy.actor_name)
 	
+	#Run Skill
+	
+	#Progress to next person 
+	turn_order.remove_at(0)
+	_start_turn()

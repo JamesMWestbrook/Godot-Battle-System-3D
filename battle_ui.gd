@@ -22,12 +22,16 @@ func _ready() -> void:
 	
 	#spawn the actor's hp and mp bars
 	for actor in battle_manager.heroes:
-		var box = actor_box.instantiate()
+		var box = actor_box.instantiate() as ActorBox
 		actor.actor_box = box
 		box.name = actor.actor_name
 		
-		targets_container.add_child(box)
+		actor_container.add_child(box)
 		actor_container.show()
+		box._init_box(actor)
+		
+	attack_button.button_down.connect(_select_skill.bind(battle_manager.default_attack))
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -42,6 +46,7 @@ func _menu(actor:Actor) -> void:
 	
 #Player has chosen a skill to use, now they need to specify an enemy.
 func _select_skill(skill:Skill)-> void:
+	actions_container.hide()
 	
 	if skill.scope == Skill.SCOPE.SINGLE:
 		for enemy in battle_manager.enemies:
@@ -54,3 +59,9 @@ func _select_skill(skill:Skill)-> void:
 			button.button_down.connect(battle_manager._use_skill.bind(skill, enemy))
 	targets_container.show()
 	#choose enemy
+
+func _clear_lists() -> void:
+	for i in targets_container.get_children():
+		i.queue_free()
+	for i in skills_container.get_children():
+		i.queue_free()
