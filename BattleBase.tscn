@@ -13,7 +13,7 @@ target = 0
 scope = 0
 stat_modifier = 0
 attack_strength = 1.0
-animation_name = "Attack"
+animation_name = "magic"
 
 [node name="Battle" type="Node3D"]
 

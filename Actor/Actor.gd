@@ -57,7 +57,7 @@ var eva_mod:int
 @export_group("Skills")
 @export var skills:Array[Skill]
 
-var is_actor:bool = false
+var is_player:bool = false
 var actor_box:ActorBox
 @export_group("AI")
 @export var ai_script:ActorAI

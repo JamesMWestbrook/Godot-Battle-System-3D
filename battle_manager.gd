@@ -37,7 +37,7 @@ func _process(delta: float) -> void:
 func _setup_actors()-> void:
 	heroes.append_array($"../Heroes".get_children())
 	for actor in heroes:
-		actor.is_actor = true #not necessary but prevents you needing to set it
+		actor.is_player = true #not necessary but prevents you needing to set it
 							#yourself
 	enemies.append_array($"../Enemies".get_children())
 	
@@ -59,7 +59,7 @@ func _start_turn() -> void:
 	
 	current_actor = turn_order[0]
 	print(current_actor.actor_name + "'s turn")
-	if turn_order[0].is_actor:
+	if turn_order[0].is_player:
 		_player_turn()
 	else:#Run AI
 		turn_order[0].ai_script._act()
@@ -77,9 +77,17 @@ func _use_skill(skill:Skill, enemy: Actor)-> void:
 	current_target = enemy
 	
 	#Run animation
-	current_actor.animation_player.play(Constants.ATTACK_ANIM)
+	var animation:String = current_skill.animation_name
+	if animation.is_empty():
+		animation = Constants.ATTACK_ANIM
+	current_actor.animation_player.play(animation)
 	
 func _skill_stats():
+	#use skill cost
+	current_actor.hp -= current_skill.hp_cost
+	current_actor.mp -= current_skill.mp_cost
+	if current_actor.is_player:
+		current_actor.actor_box._change_stats(current_actor)
 	#Run Skill
 	print("Before attack, hp: ", current_target.hp)
 	var modifier:int
@@ -91,6 +99,8 @@ func _skill_stats():
 	current_target._show_damage(difference)
 	current_target.hp -= difference
 	current_target.hp = abs(current_target.hp)
+	if current_target.is_player:
+		current_target.actor_box._change_hp(current_target)
 	print("After attack, hp: ", current_target.hp)
 
 func _end_turn():

@@ -19,6 +19,9 @@ func _init_box(actor:Actor) -> void:
 	name_label.text = actor.actor_name
 	_change_hp(actor)
 	_change_mp(actor)
+func _change_stats(actor:Actor):
+	_change_hp(actor)
+	_change_mp(actor)
 
 func _change_hp(actor:Actor) -> void:
 	hp_value.text = str(actor.hp) + "/" + str(actor.max_hp)

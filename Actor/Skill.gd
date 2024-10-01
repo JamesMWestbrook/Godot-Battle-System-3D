@@ -27,4 +27,4 @@ enum STAT{
 @export_range(0.2, 2) var attack_strength:float = 1
 
 #leaving empty will result in default "attack" being used
-@export var animation_name:String
+@export var animation_name:String = "attack"
