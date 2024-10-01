@@ -17,54 +17,38 @@ var battle_manager:BattleManager
 
 var hp:int
 ##Player's health resource. Once it hits 0, actor cannot act. 
-@export var max_hp:int:
-	get:
-		return max_hp + hp_mod
+@export var max_hp:int
 var hp_mod:int
 
 
 var mp:int
 ##Resource used for skills that cost MP. 
-@export var max_mp:int:
-	get:
-		return max_mp + mp_mod
+@export var max_mp:int
 var mp_mod:int
 
 var tp:int
 
-@export var max_tp:int = 100:
-	get:
-		return max_tp + tp_mod
+@export var max_tp:int = 100
 var tp_mod:int
 
 ##Affects physical attacks.
-@export var str:int:
-	get:
-		return str + str_mod
+@export var str:int
 var str_mod:int
 
 ##Affects magic skills.
-@export var mag:int:
-	get:
-		return mag + mag_mod
+@export var mag:int
 var mag_mod:int
 
 ##Affects damage taken. 
-@export var def:int:
-	get:
-		return def + def_mod
+@export var def:int
 var def_mod:int
 
 ##Affects turn order. Higher = faster to act.
-@export var agi:int: 
-	get:
-		return agi + agi_mod
+@export var agi:int
 var agi_mod:int
 
 ##Most likely not being used to keep things simple to start with
-@export var eva:int:
-	get:
-		return eva + eva_mod
+@export var eva:int
 var eva_mod:int
 
 @export_group("Skills")
