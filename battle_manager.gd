@@ -106,6 +106,7 @@ func _skill_stats():
 func _end_turn():
 	#Progress to next person 
 	turn_order.remove_at(0)
+	await get_tree().create_timer(0.5).timeout
 	_start_turn()
 
 
@@ -113,4 +114,3 @@ func _show_particle():
 	var particle:Node3D = current_skill.target_particle.instantiate() as Node3D
 	add_child(particle)
 	particle.global_position = current_target.global_position
-	print(particle.global_position)
