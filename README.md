@@ -21,3 +21,4 @@ If you have an enemy, make sure it has its own AI Script inheriting from AI_Base
 # Credits
 
 [Phantom Camera](https://github.com/ramokz/phantom-camera)
+[Sprites for particle effects are provided from this video.](https://youtu.be/GeParYI2J6I)
