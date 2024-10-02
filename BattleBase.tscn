@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://css4itld57jwc"]
+[gd_scene load_steps=6 format=3 uid="uid://css4itld57jwc"]
 
 [ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/battle_manager.gd" id="1_hxb6h"]
 [ext_resource type="PackedScene" uid="uid://m75855yor383" path="res://Godot-Turn-Based-Battle-System-3D/Battle_UI.tscn" id="2_bqxrr"]
 [ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Skill.gd" id="2_lapqt"]
+[ext_resource type="PackedScene" uid="uid://c8vn1wnposylo" path="res://Godot-Turn-Based-Battle-System-3D/attack_particle.tscn" id="3_d2i6g"]
 
 [sub_resource type="Resource" id="Resource_3b0im"]
 script = ExtResource("2_lapqt")
@@ -13,7 +14,12 @@ target = 0
 scope = 0
 stat_modifier = 0
 attack_strength = 1.0
-animation_name = "magic"
+user_animation = "attack"
+target_animation = ""
+target_particle = ExtResource("3_d2i6g")
+auto_spawn_particle = false
+target_anim_scope = 0
+particle_pos_offset = Vector3(0, 0, 0)
 
 [node name="Battle" type="Node3D"]
 

@@ -74,7 +74,9 @@ func _hit():
 func _show_damage(value:int):
 	damage_label.text = str(value)
 	label_anim.play(Constants.DAMAGE_LABEL_ANIM)
-	
+
+func _show_particle_animation():
+	battle_manager._show_particle()
 	
 func _finish_attack():
 	battle_manager._end_turn()

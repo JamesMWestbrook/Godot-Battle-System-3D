@@ -77,7 +77,7 @@ func _use_skill(skill:Skill, enemy: Actor)-> void:
 	current_target = enemy
 	
 	#Run animation
-	var animation:String = current_skill.animation_name
+	var animation:String = current_skill.user_animation
 	if animation.is_empty():
 		animation = Constants.ATTACK_ANIM
 	current_actor.animation_player.play(animation)
@@ -107,3 +107,10 @@ func _end_turn():
 	#Progress to next person 
 	turn_order.remove_at(0)
 	_start_turn()
+
+
+func _show_particle():
+	var particle:Node3D = current_skill.target_particle.instantiate() as Node3D
+	add_child(particle)
+	particle.global_position = current_target.global_position
+	print(particle.global_position)

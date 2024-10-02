@@ -14,7 +14,11 @@ target = 0
 scope = 0
 stat_modifier = 0
 attack_strength = 1.0
-animation_name = "attack"
+user_animation = "attack"
+target_animation = ""
+auto_spawn_particle = false
+target_anim_scope = 0
+particle_pos_offset = Vector3(0, 0, 0)
 
 [sub_resource type="Animation" id="Animation_20xjk"]
 length = 0.001

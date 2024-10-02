@@ -50,7 +50,6 @@ environment = SubResource("Environment_cv370")
 [node name="TakeyaMoon" parent="Heroes" index="0" instance=ExtResource("3_5af88")]
 
 [node name="Sword" parent="Enemies" index="0" instance=ExtResource("4_4ymsx")]
-transform = Transform3D(1, 0, 0, 0, 0.871214, -0.490904, 0, 0.490904, 0.871214, 0, 0, 0)
 
 [node name="PhantomCamera3D" type="Node3D" parent="." index="5"]
 transform = Transform3D(0.999996, 0.000694287, -0.00261465, 0.000667601, 0.87328, 0.487219, 0.00262159, -0.487219, 0.873276, 13.8495, 9.07781, 16.0253)
@@ -65,3 +64,11 @@ current = true
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D" index="0"]
 script = ExtResource("7_bpnic")
+
+[node name="Button" type="Button" parent="." index="7"]
+offset_left = 362.0
+offset_right = 370.0
+offset_bottom = 8.0
+text = "Show particle"
+
+[connection signal="button_down" from="Button" to="BattleManager" method="_show_particle"]
