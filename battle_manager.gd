@@ -23,10 +23,11 @@ func sort_agility(a:Actor,b:Actor) -> bool:
 	return false
 
 
+signal battle_won()
+@onready var HeroesParent = $"../Heroes"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	_setup_actors()
-	
+	pass
 	
 	
 	
@@ -46,6 +47,7 @@ func _setup_actors()-> void:
 	for actor in viable_actors:
 		actor.battle_manager = self
 	await get_tree().process_frame
+	battle_ui._init_boxes()
 	_start_turn()
 
 #Round = everyone has had a turn
@@ -70,13 +72,19 @@ func _player_turn()-> void:
 
 #Actor has used skill, run skill then proceed to next person 
 func _use_skill(skill:Skill, enemy: Actor)-> void:
-	battle_ui.targets_container.hide()
+	battle_ui.targets_container.hide() 
 	battle_ui._clear_lists()
 	printt(current_actor.actor_name, "uses", skill.skill_name,"on",enemy.actor_name)
 	current_skill = skill
 	current_target = enemy
 	
-	#Run animation
+	#Run animation if enemy
+	if current_actor.is_player:
+		_show_particle()
+		await current_skill.timer
+		current_target._hit()
+		current_target._finish_attack()
+		return
 	var animation:String = current_skill.user_animation
 	if animation.is_empty():
 		animation = Constants.ATTACK_ANIM
@@ -111,6 +119,9 @@ func _end_turn():
 
 
 func _show_particle():
+	if !is_instance_valid(current_skill.target_particle):
+		return
 	var particle:Node3D = current_skill.target_particle.instantiate() as Node3D
 	add_child(particle)
-	particle.global_position = current_target.global_position
+	if !current_target.is_player:
+		particle.global_position = current_target.global_position

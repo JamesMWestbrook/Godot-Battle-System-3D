@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://bhfmkuax1n6g8"]
+
+[ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Actor.gd" id="1_ta57a"]
+[ext_resource type="Texture2D" uid="uid://cg6rjbj1cdmd6" path="res://Godot-Turn-Based-Battle-System-3D/icon.svg" id="2_tu8pk"]
+[ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Skill.gd" id="2_y010m"]
+
+[sub_resource type="Resource" id="Resource_8nhy1"]
+script = ExtResource("2_y010m")
+skill_name = ""
+mp_cost = 0
+hp_cost = 0
+target = 0
+scope = 0
+stat_modifier = 0
+attack_strength = 1.0
+user_animation = "attack"
+target_animation = ""
+timer = 1.0
+auto_spawn_particle = false
+target_anim_scope = 0
+particle_pos_offset = Vector3(0, 0, 0)
+
+[node name="Actor" type="Node"]
+script = ExtResource("1_ta57a")
+actor_name = "Takeya"
+nickname = "Master"
+texture = ExtResource("2_tu8pk")
+max_hp = 50
+max_mp = 50
+def = 2
+skills = Array[ExtResource("2_y010m")]([SubResource("Resource_8nhy1"), null, null, null])
+is_player = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="DamageLabel" type="Label3D" parent="."]
+
+[node name="LabelAnimation" type="AnimationPlayer" parent="DamageLabel"]

@@ -1,10 +1,9 @@
-extends Node3D
+extends Node
 class_name Actor
 #Heros/Enemies inherit from this.
 
-#Mod is short for modifier. For used when buffing/debuffing an actor's stats.
 @onready var animation_player:AnimationPlayer = $"AnimationPlayer"
-@onready var closeup_camera:PhantomCamera3D = $PhantomCamera3D
+#@onready var closeup_camera:PhantomCamera3D = $PhantomCamera3D
 @onready var damage_label: Label3D = $DamageLabel
 @onready var label_anim:AnimationPlayer = $DamageLabel/LabelAnimation
 
@@ -13,7 +12,7 @@ var battle_manager:BattleManager
 @export_group("Info")
 @export var actor_name:String
 @export var nickname:String
-
+@export var texture:Texture
 
 
 @export_group("Stats")
@@ -56,28 +55,34 @@ var eva_mod:int
 
 @export_group("Skills")
 @export var skills:Array[Skill]
-
-var is_player:bool = false
+##Where you set for Takeya if he's learned a skill, everyone else is learned by default
+@export var skill_learned:Array[bool]
+@export var is_player:bool = false
 var actor_box:ActorBox
+var all_learned:bool
 @export_group("AI")
 @export var ai_script:ActorAI
 
 func _ready() -> void:
 	hp = max_hp
 	mp = max_mp
-	$AnimationPlayer.play(Constants.IDLE_ANIM)
+	if !is_player:
+		print(actor_name)
+		$AnimationPlayer.play(Constants.IDLE_ANIM)
+		pass
 
-
-func _hit():
+func _hit() -> void:
 	battle_manager._skill_stats()
 
 func _show_damage(value:int):
-	damage_label.text = str(value)
-	label_anim.play(Constants.DAMAGE_LABEL_ANIM)
+	pass
+	if !is_player:
+		damage_label.text = str(value)
+		label_anim.play(Constants.DAMAGE_LABEL_ANIM)
 
 func _show_particle_animation():
 	battle_manager._show_particle()
 	
 func _finish_attack():
 	battle_manager._end_turn()
-	animation_player.play(Constants.IDLE_ANIM)
+	#animation_player.play(Constants.IDLE_ANIM)

@@ -59,7 +59,7 @@ tween_resource = SubResource("Resource_jbrov")
 camera_3d_resource = SubResource("Resource_ps1el")
 
 [node name="Camera3D" type="Camera3D" parent="." index="6"]
-transform = Transform3D(0.999996, 0.000694287, -0.00261465, 0.000667601, 0.87328, 0.487219, 0.00262159, -0.487219, 0.873276, 13.8495, 9.07781, 16.0253)
+transform = Transform3D(0.999996, 0.000694288, -0.00261465, 0.000667601, 0.87328, 0.487219, 0.00262159, -0.487219, 0.873276, 13.8495, 9.07781, 16.0253)
 current = true
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D" index="0"]

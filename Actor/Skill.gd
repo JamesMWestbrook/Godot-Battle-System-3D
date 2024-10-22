@@ -27,7 +27,7 @@ enum STAT{
 @export_range(0.2, 2) var attack_strength:float = 1
 
 @export_group("Animations")
-#leaving empty will result in default "attack" being used
+##Only for enemies. Leaving blank will result in it being attack.
 @export var user_animation:String = "attack"
 #Leaving empty means no animation will play on target/enemy
 #skill is being used on
@@ -35,6 +35,8 @@ enum STAT{
 
 ## Particles/nodes have to be in an individual scene file.
 @export var target_particle:PackedScene
+##For player skills, how long to delay until 
+@export var timer:float = 1
 ## If you want the particle to auto spawn on top of 
 @export var auto_spawn_particle:bool
 enum TARGET_ANIM_SCOPE{

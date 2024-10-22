@@ -20,6 +20,9 @@ func _ready() -> void:
 	skills_container.hide()
 	targets_container.hide()
 	
+	
+
+func _init_boxes() -> void:
 	#spawn the actor's hp and mp bars
 	for actor in battle_manager.heroes:
 		var box = actor_box.instantiate() as ActorBox
@@ -31,8 +34,6 @@ func _ready() -> void:
 		box._init_box(actor)
 		
 	attack_button.button_down.connect(_select_skill.bind(battle_manager.default_attack))
-
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass

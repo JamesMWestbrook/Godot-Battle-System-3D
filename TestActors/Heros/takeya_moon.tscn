@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://cbu0a83k5wfak"]
+[gd_scene load_steps=9 format=3 uid="uid://cbu0a83k5wfak"]
 
 [ext_resource type="PackedScene" uid="uid://dbo6vy4oej6fo" path="res://Godot-Turn-Based-Battle-System-3D/Actor/actor_3d.tscn" id="1_jmu70"]
 [ext_resource type="PackedScene" uid="uid://bkuxveu0r6mjm" path="res://Godot-Turn-Based-Battle-System-3D/TestActors/Assets/moon.tscn" id="2_f7s7q"]
+[ext_resource type="Texture2D" uid="uid://cg6rjbj1cdmd6" path="res://Godot-Turn-Based-Battle-System-3D/icon.svg" id="2_pm8as"]
 
 [sub_resource type="Animation" id="Animation_xvx56"]
 length = 0.001
@@ -125,6 +126,7 @@ _data = {
 
 [node name="TakeyaMoon" instance=ExtResource("1_jmu70")]
 actor_name = "Takeya"
+texture = ExtResource("2_pm8as")
 max_hp = 40
 max_mp = 50
 str = 4

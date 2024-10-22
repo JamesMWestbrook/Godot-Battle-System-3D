@@ -17,6 +17,7 @@ attack_strength = 1.0
 user_animation = "attack"
 target_animation = ""
 target_particle = ExtResource("3_d2i6g")
+timer = 1.0
 auto_spawn_particle = false
 target_anim_scope = 0
 particle_pos_offset = Vector3(0, 0, 0)

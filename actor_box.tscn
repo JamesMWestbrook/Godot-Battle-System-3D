@@ -6,6 +6,19 @@
 [node name="ActorBox" type="HBoxContainer"]
 script = ExtResource("1_k7s3r")
 
+[node name="image" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_c6kex")
+
+[node name="image_bg" type="TextureRect" parent="image"]
+show_behind_parent = true
+layout_mode = 2
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 127.0
+offset_bottom = 127.0
+texture = ExtResource("1_c6kex")
+
 [node name="Stats" type="VBoxContainer" parent="."]
 layout_mode = 2
 
@@ -13,7 +26,6 @@ layout_mode = 2
 custom_minimum_size = Vector2(157, 0)
 layout_mode = 2
 text = "Name"
-horizontal_alignment = 2
 
 [node name="HPBox" type="HBoxContainer" parent="Stats"]
 layout_mode = 2
@@ -27,7 +39,6 @@ custom_minimum_size = Vector2(125.41, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 text = "9999/9999"
-horizontal_alignment = 2
 
 [node name="MPBox" type="HBoxContainer" parent="Stats"]
 layout_mode = 2
@@ -41,7 +52,6 @@ custom_minimum_size = Vector2(125.41, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 text = "9999/9999"
-horizontal_alignment = 2
 
 [node name="Statuses" type="HBoxContainer" parent="."]
 layout_mode = 2
