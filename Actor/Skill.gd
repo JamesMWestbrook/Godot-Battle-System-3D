@@ -35,6 +35,8 @@ enum STAT{
 
 ## Particles/nodes have to be in an individual scene file.
 @export var target_particle:PackedScene
+## Sound effect
+@export var sound_effect: AudioStream
 ##For player skills, how long to delay until 
 @export var timer:float = 1
 ## If you want the particle to auto spawn on top of 

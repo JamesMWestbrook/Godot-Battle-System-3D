@@ -10,8 +10,12 @@ class_name BattleUI
 #Skills container also being used for items as well 
 #depending on which you select
 @onready var skills_container: VBoxContainer = $SkillsItems
-@onready var attack_button: Button = $Actions/Attack
 @onready var targets_container: VBoxContainer = $Targets
+
+#BUttons
+@onready var attack_button: Button = $Actions/Attack
+@onready var skills: Button = $Actions/Skills
+@onready var items: Button = $Actions/Items
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -43,12 +47,28 @@ func _process(delta: float) -> void:
 
 func _menu(actor:Actor) -> void:
 	actions_container.show()
+	attack_button.grab_focus()
 	
+#Skills button selected
+func _on_skills_button_down() -> void:
+	skills_container.show()
+	var actor:Actor = battle_manager.current_actor
+	
+	#populate all skills actor has 
+	for skill:Skill in actor.skills:
+		if actor.skill_learned.has(skill.skill_name):
+			_skill_button(skill)
+			
+	#Grab first skill
+	skills_container.get_child(0).grab_focus()
+
 	
 #Player has chosen a skill to use, now they need to specify an enemy.
 func _select_skill(skill:Skill)-> void:
 	actions_container.hide()
-	
+	skills_container.hide()
+	items.hide()
+	var index:int = 0
 	if skill.scope == Skill.SCOPE.SINGLE:
 		for enemy in battle_manager.enemies:
 			#spawn button per enemy
@@ -56,9 +76,12 @@ func _select_skill(skill:Skill)-> void:
 			button.name = enemy.actor_name
 			button.text = enemy.actor_name
 			targets_container.add_child(button)
+			button.grab_focus()
+			index += 1
 			
 			button.button_down.connect(battle_manager._use_skill.bind(skill, enemy))
 	targets_container.show()
+	
 	#choose enemy
 
 func _clear_lists() -> void:
@@ -66,3 +89,10 @@ func _clear_lists() -> void:
 		i.queue_free()
 	for i in skills_container.get_children():
 		i.queue_free()
+
+func _skill_button(skill:Skill):
+	var button:Button = Button.new()
+	button.text = skill.skill_name
+	
+	button.button_down.connect(_select_skill.bind(skill))
+	skills_container.add_child(button)

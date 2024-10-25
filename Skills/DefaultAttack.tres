@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=4 format=3 uid="uid://c28047ruu4ro5"]
+
+[ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Skill.gd" id="1_b30ra"]
+[ext_resource type="PackedScene" uid="uid://c8vn1wnposylo" path="res://Godot-Turn-Based-Battle-System-3D/attack_particle.tscn" id="2_1j5ig"]
+[ext_resource type="AudioStream" uid="uid://d5vspqspkm20" path="res://Assets/Sound/Effects/swing2.wav" id="2_wf373"]
+
+[resource]
+script = ExtResource("1_b30ra")
+skill_name = "Attack"
+mp_cost = 0
+hp_cost = 0
+target = 0
+scope = 0
+stat_modifier = 0
+attack_strength = 1.0
+user_animation = "attack"
+target_animation = ""
+target_particle = ExtResource("2_1j5ig")
+sound_effect = ExtResource("2_wf373")
+timer = 1.0
+auto_spawn_particle = false
+target_anim_scope = 0
+particle_pos_offset = Vector3(0, 0, 0)

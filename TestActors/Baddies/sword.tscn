@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://cu6sak2j4sykn"]
+[gd_scene load_steps=11 format=3 uid="uid://cu6sak2j4sykn"]
 
 [ext_resource type="PackedScene" uid="uid://dbo6vy4oej6fo" path="res://Godot-Turn-Based-Battle-System-3D/Actor/actor_3d.tscn" id="1_iujy7"]
 [ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Skill.gd" id="2_3cv3j"]
 [ext_resource type="PackedScene" uid="uid://cas8o6wjy2xlh" path="res://Godot-Turn-Based-Battle-System-3D/TestActors/Assets/sword form.glb" id="2_4m1bw"]
+[ext_resource type="AudioStream" uid="uid://blbn2ogqtad6y" path="res://Assets/Sound/Effects/swing.wav" id="3_cv1dr"]
 [ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/TestActors/Baddies/AI_Sword_Enemy.gd" id="3_ubwoh"]
 
 [sub_resource type="Resource" id="Resource_7k375"]
@@ -58,6 +59,21 @@ tracks/0/keys = {
 "method": &"_finish_attack"
 }]
 }
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_cv1dr")
+}],
+"times": PackedFloat32Array(0.433333)
+}
+tracks/1/use_blend = true
 
 [sub_resource type="Animation" id="Animation_002vw"]
 resource_name = "idle"
@@ -84,8 +100,8 @@ _data = {
 
 [node name="Sword" node_paths=PackedStringArray("ai_script") instance=ExtResource("1_iujy7")]
 actor_name = "Sword"
-max_hp = 20
-str = 5
+max_hp = 4
+str = 4
 mag = 2
 def = 2
 agi = 2
@@ -110,5 +126,13 @@ script = ExtResource("3_ubwoh")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.49871, 0)
 text = "-999
 "
+
+[node name="HP Label" type="Label3D" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.27981, 0)
+text = "-999
+"
+font_size = 68
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="6"]
 
 [editable path="sword form"]

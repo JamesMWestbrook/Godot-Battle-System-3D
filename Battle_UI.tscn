@@ -74,3 +74,5 @@ offset_top = -242.0
 offset_right = -434.0
 grow_horizontal = 0
 grow_vertical = 0
+
+[connection signal="button_down" from="Actions/Skills" to="." method="_on_skills_button_down"]

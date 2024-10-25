@@ -6,6 +6,8 @@ class_name Actor
 #@onready var closeup_camera:PhantomCamera3D = $PhantomCamera3D
 @onready var damage_label: Label3D = $DamageLabel
 @onready var label_anim:AnimationPlayer = $DamageLabel/LabelAnimation
+var hp_label #Just for enemies 
+
 
 var battle_manager:BattleManager
 
@@ -56,7 +58,7 @@ var eva_mod:int
 @export_group("Skills")
 @export var skills:Array[Skill]
 ##Where you set for Takeya if he's learned a skill, everyone else is learned by default
-@export var skill_learned:Array[bool]
+@export var skill_learned:Array[String]
 @export var is_player:bool = false
 var actor_box:ActorBox
 var all_learned:bool
@@ -69,7 +71,9 @@ func _ready() -> void:
 	if !is_player:
 		print(actor_name)
 		$AnimationPlayer.play(Constants.IDLE_ANIM)
-		pass
+		hp_label = $"HP Label"
+		hp_label.text = str(hp)
+	
 
 func _hit() -> void:
 	battle_manager._skill_stats()
@@ -79,10 +83,13 @@ func _show_damage(value:int):
 	if !is_player:
 		damage_label.text = str(value)
 		label_anim.play(Constants.DAMAGE_LABEL_ANIM)
+		await get_tree().process_frame
+		hp_label.text = str(hp)
 
 func _show_particle_animation():
 	battle_manager._show_particle()
 	
 func _finish_attack():
 	battle_manager._end_turn()
-	#animation_player.play(Constants.IDLE_ANIM)
+	if !is_player:
+		animation_player.play(Constants.IDLE_ANIM)

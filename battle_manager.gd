@@ -24,7 +24,12 @@ func sort_agility(a:Actor,b:Actor) -> bool:
 
 
 signal battle_won()
-@onready var HeroesParent = $"../Heroes"
+signal battle_lost()
+@onready var HeroesParent:Node3D = $"../Heroes"
+@onready var EnemiesParent: Node3D = $"../Enemies"
+
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
@@ -82,6 +87,9 @@ func _use_skill(skill:Skill, enemy: Actor)-> void:
 	if current_actor.is_player:
 		_show_particle()
 		await current_skill.timer
+		if current_skill.sound_effect:
+			audio_stream_player.stream = current_skill.sound_effect
+			audio_stream_player.play()
 		current_target._hit()
 		current_target._finish_attack()
 		return
@@ -103,15 +111,35 @@ func _skill_stats():
 		modifier = current_actor.str + current_actor.str_mod
 	elif current_skill.stat_modifier == Skill.STAT.MAG:
 		modifier = current_actor.mag + current_actor.mag_mod
-	var difference = modifier * current_skill.attack_strength - (current_target.def + current_target.def_mod)
+	var attack_strength = modifier * current_skill.attack_strength
+	var difference =  attack_strength - (current_target.def + current_target.def_mod)
 	current_target._show_damage(difference)
-	current_target.hp -= difference
+	current_target.hp -= abs(difference)
 	current_target.hp = abs(current_target.hp)
 	if current_target.is_player:
 		current_target.actor_box._change_hp(current_target)
 	print("After attack, hp: ", current_target.hp)
 
 func _end_turn():
+	#is the player dead
+	var players_alive:int = heroes.size()
+	for p in heroes:
+		if p.hp <= 0:
+			players_alive -= 1
+	if players_alive <= 0:
+		battle_lost.emit() #start fight over
+		return
+		
+	#are enemies all dead
+	var enemies_alive:bool = true
+	for enemy in enemies:
+		if enemy.hp <= 0:
+			enemies.erase(enemy)
+	if enemies.size() <= 0:
+		enemies_alive = false
+		battle_won.emit()
+		return
+	
 	#Progress to next person 
 	turn_order.remove_at(0)
 	await get_tree().create_timer(0.5).timeout

@@ -1,34 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://css4itld57jwc"]
+[gd_scene load_steps=4 format=3 uid="uid://css4itld57jwc"]
 
 [ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/battle_manager.gd" id="1_hxb6h"]
+[ext_resource type="Resource" uid="uid://c28047ruu4ro5" path="res://Godot-Turn-Based-Battle-System-3D/Skills/DefaultAttack.tres" id="2_8lfde"]
 [ext_resource type="PackedScene" uid="uid://m75855yor383" path="res://Godot-Turn-Based-Battle-System-3D/Battle_UI.tscn" id="2_bqxrr"]
-[ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Skill.gd" id="2_lapqt"]
-[ext_resource type="PackedScene" uid="uid://c8vn1wnposylo" path="res://Godot-Turn-Based-Battle-System-3D/attack_particle.tscn" id="3_d2i6g"]
-
-[sub_resource type="Resource" id="Resource_3b0im"]
-script = ExtResource("2_lapqt")
-skill_name = "Attack"
-mp_cost = 0
-hp_cost = 0
-target = 0
-scope = 0
-stat_modifier = 0
-attack_strength = 1.0
-user_animation = "attack"
-target_animation = ""
-target_particle = ExtResource("3_d2i6g")
-timer = 1.0
-auto_spawn_particle = false
-target_anim_scope = 0
-particle_pos_offset = Vector3(0, 0, 0)
 
 [node name="Battle" type="Node3D"]
 
 [node name="BattleManager" type="Node" parent="." node_paths=PackedStringArray("battle_ui")]
 process_priority = 10
 script = ExtResource("1_hxb6h")
-default_attack = SubResource("Resource_3b0im")
+default_attack = ExtResource("2_8lfde")
 battle_ui = NodePath("../Battle_UI")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="BattleManager"]
 
 [node name="Heroes" type="Node3D" parent="."]
 
