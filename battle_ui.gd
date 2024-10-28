@@ -9,7 +9,7 @@ class_name BattleUI
 @onready var actions_container:VBoxContainer = $Actions
 #Skills container also being used for items as well 
 #depending on which you select
-@onready var skills_container: VBoxContainer = $SkillsItems
+@onready var skills_container: GridContainer = $ScrollContainer/SkillsItems
 @onready var targets_container: VBoxContainer = $Targets
 
 #BUttons
@@ -80,6 +80,29 @@ func _select_skill(skill:Skill)-> void:
 			index += 1
 			
 			button.button_down.connect(battle_manager._use_skill.bind(skill, enemy))
+	elif skill.scope == Skill.SCOPE.ALL:
+		#spawn button per enemy
+		var button:Button = Button.new()
+		button.name = "All Enemies"
+		button.text = "All Enemies"
+		targets_container.add_child(button)
+		button.grab_focus()
+		index += 1
+		
+		#current target is just placeholder bc it needs second argument
+		button.button_down.connect(battle_manager._use_skill.bind(skill, battle_manager.current_target))
+	elif skill.scope == Skill.SCOPE.RANDOM:
+		#spawn button per enemy
+		var button:Button = Button.new()
+		button.name = "All"
+		button.text = str(skill.times)
+		button.text += " Random Enemies"
+		targets_container.add_child(button)
+		button.grab_focus()
+		index += 1
+			
+		#current target is just placeholder bc it needs second argument
+		button.button_down.connect(battle_manager._use_skill.bind(skill, battle_manager.current_target))
 	targets_container.show()
 	
 	#choose enemy
@@ -93,6 +116,18 @@ func _clear_lists() -> void:
 func _skill_button(skill:Skill):
 	var button:Button = Button.new()
 	button.text = skill.skill_name
-	
+	if skill.hp_cost > 0:
+		button.text += " " + str(skill.hp_cost) + " hp"
+		if battle_manager.current_actor.hp < skill.hp_cost:
+			button.disabled = true
+	elif skill.mp_cost > 0:
+		button.text += " " + str(skill.mp_cost) + " mp"
+		if battle_manager.current_actor.mp < skill.mp_cost:
+			button.disabled = true
+	elif skill.tp_cost > 0:
+		if battle_manager.current_actor.tp < skill.tp_cost:
+			button.disabled = true
+		button.text += " " + str(skill.tp_cost) + " tp"
+
 	button.button_down.connect(_select_skill.bind(skill))
 	skills_container.add_child(button)

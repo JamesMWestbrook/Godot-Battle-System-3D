@@ -21,3 +21,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.6013, 0, 0)
 
 [node name="Battle_UI" parent="." node_paths=PackedStringArray("battle_manager") instance=ExtResource("2_bqxrr")]
 battle_manager = NodePath("../BattleManager")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.86944, 0)

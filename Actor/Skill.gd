@@ -7,18 +7,29 @@ class_name Skill
 
 @export var mp_cost:int
 @export var hp_cost:int
+@export var tp_cost:int
 
+@export var mp_gain:int
+@export var tp_gain:int = 4
+
+@export_range(1,99) var times:int = 1
+enum EFFECT{
+	NORMAL_MOVE,
+	NON_DAMAGE
+}
+var move_type:EFFECT
 enum TARGET{
 	HOSTILE,
-	FRIENDLY
+	FRIENDLY,
+	SELF
 }
 @export var target:TARGET
 enum SCOPE{
 	SINGLE,
-	ALL
+	ALL,
+	RANDOM
 }
 @export var scope:SCOPE
-
 enum STAT{
 	STR,
 	MAG
@@ -47,3 +58,25 @@ enum TARGET_ANIM_SCOPE{
 }
 @export var target_anim_scope:TARGET_ANIM_SCOPE
 @export var particle_pos_offset:Vector3
+
+@export_group("Special")
+@export var use_special:bool
+#percentage out of 100, 100 being 100%
+@export_range(1,100) var likliehood:int
+@export var poison:bool
+@export var poison_per_round:int
+@export var blind:bool
+@export var stun:bool
+@export_range(1,99) var turns:int
+@export var status_icon: Texture
+
+@export_subgroup("User")
+@export var user_special:bool
+@export var hp_regen:int
+@export var mp_regen:int
+@export var tp_regen:int
+
+@export var str_boost:int
+@export var mag_boost:int
+@export var def_boost:int
+@export var agi_boost:int

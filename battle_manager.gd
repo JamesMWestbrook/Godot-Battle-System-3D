@@ -79,18 +79,39 @@ func _player_turn()-> void:
 func _use_skill(skill:Skill, enemy: Actor)-> void:
 	battle_ui.targets_container.hide() 
 	battle_ui._clear_lists()
-	printt(current_actor.actor_name, "uses", skill.skill_name,"on",enemy.actor_name)
 	current_skill = skill
 	current_target = enemy
 	
 	#Run animation if enemy
 	if current_actor.is_player:
 		_show_particle()
+		#use skill cost
+		current_actor.hp -= current_skill.hp_cost
+		current_actor.mp -= current_skill.mp_cost
+		current_actor.tp -= current_skill.tp_cost
+		
+		current_actor.mp += current_skill.mp_gain
+		current_actor.tp += current_skill.tp_gain
+		
 		await current_skill.timer
-		if current_skill.sound_effect:
-			audio_stream_player.stream = current_skill.sound_effect
-			audio_stream_player.play()
-		current_target._hit()
+		
+		for i in current_skill.times:
+			if current_skill.sound_effect:
+				audio_stream_player.stream = current_skill.sound_effect
+				audio_stream_player.play()
+				
+			if current_skill.scope == Skill.SCOPE.RANDOM:
+				var index = randi_range(0,enemies.size() - 1)
+				current_target = enemies[index]
+			if current_skill.scope == Skill.SCOPE.ALL:
+				printt(current_actor.actor_name, "uses", skill.skill_name,"on","All")
+				for e in enemies:
+					current_target = e
+					e._hit()
+			
+			else: #Not ALL
+				printt(current_actor.actor_name, "uses", skill.skill_name,"on",current_target.actor_name)
+				current_target._hit()
 		current_target._finish_attack()
 		return
 	var animation:String = current_skill.user_animation
@@ -99,9 +120,8 @@ func _use_skill(skill:Skill, enemy: Actor)-> void:
 	current_actor.animation_player.play(animation)
 	
 func _skill_stats():
-	#use skill cost
-	current_actor.hp -= current_skill.hp_cost
-	current_actor.mp -= current_skill.mp_cost
+
+	
 	if current_actor.is_player:
 		current_actor.actor_box._change_stats(current_actor)
 	#Run Skill

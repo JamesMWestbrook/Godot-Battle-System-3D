@@ -11,6 +11,10 @@ script = ExtResource("2_3cv3j")
 skill_name = "SwordAttack"
 mp_cost = 0
 hp_cost = 0
+tp_cost = 0
+mp_gain = 0
+tp_gain = 4
+times = 1
 target = 0
 scope = 0
 stat_modifier = 0
@@ -100,8 +104,8 @@ _data = {
 
 [node name="Sword" node_paths=PackedStringArray("ai_script") instance=ExtResource("1_iujy7")]
 actor_name = "Sword"
-max_hp = 4
-str = 4
+max_hp = 15
+str = 3
 mag = 2
 def = 2
 agi = 2
