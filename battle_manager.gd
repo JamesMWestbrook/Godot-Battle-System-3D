@@ -29,6 +29,7 @@ signal battle_lost()
 @onready var EnemiesParent: Node3D = $"../Enemies"
 
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+@onready var camera_3d: Camera3D = $"../Camera3D"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -60,16 +61,32 @@ func _setup_actors()-> void:
 func _start_turn() -> void:
 	#calculate turn order, after an actor acts, they are removed from turn order
 	if turn_order.is_empty():
-		#restart the round
+		#check stats, apply stats, lower tick
+		for actor in viable_actors:
+			for status in actor.statuses:
+				#apply stat
+				pass
+				#lower tick
+				status.turns -= 1
+				#if tick 0 then remove it
+				if status.turns == 0:
+					actor.statuses.erase(status)
 		turn_order.append_array(viable_actors)
+		#restart the round
 		turn_order.sort_custom(sort_agility)
+		
+		_run_statuses()
 	
 	current_actor = turn_order[0]
 	print(current_actor.actor_name + "'s turn")
-	if turn_order[0].is_player:
-		_player_turn()
-	else:#Run AI
-		turn_order[0].ai_script._act()
+	if !turn_order[0].is_stunned():
+		if turn_order[0].is_player:
+			_player_turn()
+		else:#Run AI
+			turn_order[0].ai_script._act()
+	else: #Is stunned
+		print(turn_order[0].actor_name + " is stunned")
+		_end_turn()
 
 func _player_turn()-> void:
 	battle_ui._menu(current_actor)
@@ -81,6 +98,9 @@ func _use_skill(skill:Skill, enemy: Actor)-> void:
 	battle_ui._clear_lists()
 	current_skill = skill
 	current_target = enemy
+	
+
+		
 	
 	#Run animation if enemy
 	if current_actor.is_player:
@@ -102,16 +122,27 @@ func _use_skill(skill:Skill, enemy: Actor)-> void:
 				
 			if current_skill.scope == Skill.SCOPE.RANDOM:
 				var index = randi_range(0,enemies.size() - 1)
-				current_target = enemies[index]
-			if current_skill.scope == Skill.SCOPE.ALL:
+				current_target = enemies[index]	#buff/debuff
+				if skill.use_special:
+					if randi_range(0,100) <= skill.likliehood:
+						_add_status(current_target, skill)
+			elif current_skill.scope == Skill.SCOPE.ALL:
 				printt(current_actor.actor_name, "uses", skill.skill_name,"on","All")
 				for e in enemies:
 					current_target = e
 					e._hit()
+						#buff/debuff
+					if skill.use_special:
+						if randi_range(0,100) <= skill.likliehood:
+							_add_status(current_target, skill)
 			
 			else: #Not ALL
 				printt(current_actor.actor_name, "uses", skill.skill_name,"on",current_target.actor_name)
 				current_target._hit()
+					#buff/debuff
+				if skill.use_special:
+					if randi_range(0,100) <= skill.likliehood:
+						_add_status(current_target, skill)
 		current_target._finish_attack()
 		return
 	var animation:String = current_skill.user_animation
@@ -120,19 +151,17 @@ func _use_skill(skill:Skill, enemy: Actor)-> void:
 	current_actor.animation_player.play(animation)
 	
 func _skill_stats():
-
-	
 	if current_actor.is_player:
 		current_actor.actor_box._change_stats(current_actor)
 	#Run Skill
 	print("Before attack, hp: ", current_target.hp)
 	var modifier:int
 	if current_skill.stat_modifier == Skill.STAT.STR:
-		modifier = current_actor.str + current_actor.str_mod
+		modifier = current_actor.get_str()
 	elif current_skill.stat_modifier == Skill.STAT.MAG:
-		modifier = current_actor.mag + current_actor.mag_mod
+		modifier = current_actor.get_mag()
 	var attack_strength = modifier * current_skill.attack_strength
-	var difference =  attack_strength - (current_target.def + current_target.def_mod)
+	var difference =  attack_strength - (current_target.get_def())
 	current_target._show_damage(difference)
 	current_target.hp -= abs(difference)
 	current_target.hp = abs(current_target.hp)
@@ -173,3 +202,51 @@ func _show_particle():
 	add_child(particle)
 	if !current_target.is_player:
 		particle.global_position = current_target.global_position
+		
+func _add_status(actor:Actor ,skill:Skill):
+	var status:Dictionary
+	status.turns = 2
+	
+	if skill.poison:
+		status.type = "poison"
+		status.tick = skill.poison_per_round
+	elif skill.blind:
+		status.type = "blind"
+	elif skill.stun:
+		status.type = "stun"
+	 
+	status.hp = skill.hp_regen
+	status.mp = skill.mp_regen
+	status.tp = skill.tp_regen
+	status.str = skill.str_boost
+	status.mag = skill.mag_boost
+	status.def = skill.def_boost
+	status.agi = skill.agi_boost
+	
+	actor.statuses.append(status)
+	_apply_status_stats(actor, status)
+	if actor.is_player:
+		var texture = TextureRect.new()
+		texture.texture = skill.status_icon
+		texture.name = skill.skill_name
+		actor.actor_box.statuses.add_child(texture)
+	else:
+		var test_child:TextureRect = TextureRect.new()
+		test_child.texture = load("res://Godot-Turn-Based-Battle-System-3D/debuff.svg")
+		actor.status_grid.add_child(test_child)
+		
+func _apply_status_stats(actor:Actor ,status:Dictionary) -> void:
+	actor.str_mod += status.str
+	actor.mag_mod += status.mag
+	actor.def_mod += status.def
+	actor.agi_mod += status.agi
+	
+func _remove_status_stats(actor:Actor ,status:Dictionary) -> void:
+	actor.str_mod -= status.str
+	actor.mag_mod -= status.mag
+	actor.def_mod -= status.def
+	actor.agi_mod -= status.agi
+
+func _run_statuses() -> void:
+	#Status is being run
+	pass

@@ -25,6 +25,20 @@ timer = 1.0
 auto_spawn_particle = false
 target_anim_scope = 0
 particle_pos_offset = Vector3(0, 0, 0)
+use_special = false
+likliehood = 0
+poison = false
+poison_per_round = 0
+blind = false
+stun = false
+turns = 0
+hp_regen = 0
+mp_regen = 0
+tp_regen = 0
+str_boost = 0
+mag_boost = 0
+def_boost = 0
+agi_boost = 0
 
 [sub_resource type="Animation" id="Animation_20xjk"]
 length = 0.001

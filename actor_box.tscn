@@ -53,7 +53,20 @@ layout_mode = 2
 size_flags_horizontal = 8
 text = "9999/9999"
 
-[node name="Statuses" type="HBoxContainer" parent="."]
+[node name="TPBox" type="HBoxContainer" parent="Stats"]
+layout_mode = 2
+
+[node name="TP" type="Label" parent="Stats/TPBox"]
+layout_mode = 2
+text = "TP:"
+
+[node name="TPValue" type="Label" parent="Stats/TPBox"]
+custom_minimum_size = Vector2(125.41, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+text = "9999/9999"
+
+[node name="Statuses" type="GridContainer" parent="."]
 layout_mode = 2
 
 [node name="ExampleStatus" type="TextureRect" parent="Statuses"]

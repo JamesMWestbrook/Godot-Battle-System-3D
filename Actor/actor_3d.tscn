@@ -90,3 +90,6 @@ font_size = 68
 libraries = {
 "": SubResource("AnimationLibrary_j546r")
 }
+
+[node name="StatusMarker" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.14052, 0)

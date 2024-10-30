@@ -6,6 +6,7 @@ class_name Actor
 #@onready var closeup_camera:PhantomCamera3D = $PhantomCamera3D
 @onready var damage_label: Label3D = $DamageLabel
 @onready var label_anim:AnimationPlayer = $DamageLabel/LabelAnimation
+@onready var status_marker: Node3D = $StatusMarker
 var hp_label #Just for enemies 
 
 
@@ -24,7 +25,6 @@ var hp:int
 @export var max_hp:int
 var hp_mod:int
 
-
 var mp:int
 ##Resource used for skills that cost MP. 
 @export var max_mp:int
@@ -38,18 +38,26 @@ var tp_mod:int
 ##Affects physical attacks.
 @export var str:int
 var str_mod:int
-
+func get_str() -> int:
+	return str + str_mod
+	
 ##Affects magic skills.
 @export var mag:int
 var mag_mod:int
-
+func get_mag() -> int:
+	return mag + mag_mod
+	
 ##Affects damage taken. 
 @export var def:int
 var def_mod:int
-
+func get_def() -> int:
+	return def + def_mod
+	
 ##Affects turn order. Higher = faster to act.
 @export var agi:int
 var agi_mod:int
+func get_agi() -> int:
+	return agi + agi_mod
 
 ##Most likely not being used to keep things simple to start with
 @export var eva:int
@@ -65,6 +73,9 @@ var all_learned:bool
 @export_group("AI")
 @export var ai_script:ActorAI
 
+var statuses:Array[Dictionary]
+#for enemies only
+var status_grid:GridContainer
 func _ready() -> void:
 	hp = max_hp
 	mp = max_mp
@@ -93,3 +104,10 @@ func _finish_attack():
 	battle_manager._end_turn()
 	if !is_player:
 		animation_player.play(Constants.IDLE_ANIM)
+
+func is_stunned() -> bool:
+	for status in statuses:
+		if status.type == "stun":
+			return true
+	return false
+		

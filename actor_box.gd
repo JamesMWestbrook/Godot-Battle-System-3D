@@ -5,6 +5,7 @@ class_name ActorBox
 @onready var hp_value: Label = $Stats/HPBox/HPValue
 @onready var mp_value: Label = $Stats/MPBox/MPValue
 @onready var image: TextureRect = $image
+@onready var statuses: GridContainer = $Statuses
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

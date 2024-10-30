@@ -38,6 +38,17 @@ func _init_boxes() -> void:
 		box._init_box(actor)
 		
 	attack_button.button_down.connect(_select_skill.bind(battle_manager.default_attack))
+	
+	for enemy in battle_manager.enemies:
+		var grid = GridContainer.new()
+		grid.columns = 6
+		grid.scale = Vector2(0.5,0.5)
+		add_child(grid)
+		grid.position = battle_manager.camera_3d.unproject_position(enemy.status_marker.global_position)
+		enemy.status_grid = grid
+		
+
+		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
