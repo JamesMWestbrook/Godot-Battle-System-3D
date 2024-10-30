@@ -67,7 +67,8 @@ func _start_turn() -> void:
 				#apply stat
 				pass
 				#lower tick
-				status.turns -= 1
+				if status.type != "stun":
+					status.turns -= 1
 				#if tick 0 then remove it
 				if status.turns == 0:
 					actor.statuses.erase(status)
@@ -86,6 +87,9 @@ func _start_turn() -> void:
 			turn_order[0].ai_script._act()
 	else: #Is stunned
 		print(turn_order[0].actor_name + " is stunned")
+		turn_order[0].get_status("stun").turns -= 1
+		if turn_order[0].get_status("stun").turns <= 0:
+			turn_order[0].statuses.erase(turn_order[0].get_status("stun"))
 		_end_turn()
 
 func _player_turn()-> void:
@@ -223,8 +227,12 @@ func _add_status(actor:Actor ,skill:Skill):
 	status.def = skill.def_boost
 	status.agi = skill.agi_boost
 	
-	actor.statuses.append(status)
-	_apply_status_stats(actor, status)
+	if actor.has_status(status.type):
+		pass
+	else:
+		_apply_status_stats(actor, status)
+		actor.statuses.append(status)
+	
 	if actor.is_player:
 		var texture = TextureRect.new()
 		texture.texture = skill.status_icon

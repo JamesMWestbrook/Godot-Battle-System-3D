@@ -110,4 +110,13 @@ func is_stunned() -> bool:
 		if status.type == "stun":
 			return true
 	return false
-		
+func has_status(type:String) -> bool:
+	for status in statuses:
+		if status.type == type:
+			return true
+	return false
+func get_status(type:String) -> Dictionary:
+	for status in statuses:
+		if status.type == type:
+			return status
+	return {type:"Null"}
