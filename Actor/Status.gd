@@ -26,3 +26,5 @@ class_name Status
 
 @export_group("Special")
 @export var texture_change:Texture
+@export var alternate_attack:Skill
+@export var enable_skills:Array[Skill]
