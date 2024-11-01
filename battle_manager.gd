@@ -72,6 +72,8 @@ func _start_turn() -> void:
 				#if tick 0 then remove it
 				if status.turns == 0:
 					actor.statuses.erase(status)
+					if status.has("changed_texture"):
+						actor.current_texture = actor.texture
 					_remove_status_stats(actor,status)
 		turn_order.append_array(viable_actors)
 		#restart the round
@@ -243,6 +245,10 @@ func _add_status(actor:Actor ,status_res:Status):
 		texture.texture = new_status.status_icon
 		texture.name = new_status.status_name
 		actor.actor_box.statuses.add_child(texture)
+		
+		if is_instance_valid(status_res.texture_change):
+			actor.current_texture = status_res.texture_change
+			new_status.changed_texture = true
 	else:
 		var test_child:TextureRect = TextureRect.new()
 		test_child.texture = new_status.status_icon

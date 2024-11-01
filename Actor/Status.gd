@@ -23,3 +23,6 @@ class_name Status
 @export var mag_boost:int
 @export var def_boost:int
 @export var agi_boost:int
+
+@export_group("Special")
+@export var texture_change:Texture

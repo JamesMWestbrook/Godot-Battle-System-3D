@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Status" load_steps=2 format=3 uid="uid://nslp28s2t7nv"]
+[gd_resource type="Resource" script_class="Status" load_steps=3 format=3 uid="uid://nslp28s2t7nv"]
 
 [ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Status.gd" id="1_7wux4"]
+[ext_resource type="Texture2D" uid="uid://b0r4xge3pvnac" path="res://Godot-Turn-Based-Battle-System-3D/Magic Heroes by Captainskeleto 1_10.png" id="2_m25xy"]
 
 [resource]
 script = ExtResource("1_7wux4")
@@ -19,3 +20,4 @@ str_boost = 0
 mag_boost = 0
 def_boost = 0
 agi_boost = 5
+texture_change = ExtResource("2_m25xy")
