@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Status" load_steps=3 format=3 uid="uid://bsgen1e1qbjgi"]
+
+[ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Status.gd" id="1_rxidh"]
+[ext_resource type="Texture2D" uid="uid://ddlhdiu7q17s3" path="res://Godot-Turn-Based-Battle-System-3D/debuff.svg" id="2_rmd4x"]
+
+[resource]
+script = ExtResource("1_rxidh")
+status_name = "Shocked"
+status_icon = ExtResource("2_rmd4x")
+turns = 2
+hp_tick_per_round = 0
+mp_tick_per_round = 0
+tp_tick_per_round = 0
+blind = false
+stun = true
+accuracy_debuff = 100
+hp_regen = 0
+mp_regen = 0
+tp_regen = 0
+str_boost = 0
+mag_boost = 0
+def_boost = 0
+agi_boost = 0

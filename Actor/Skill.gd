@@ -61,22 +61,6 @@ enum TARGET_ANIM_SCOPE{
 
 @export_group("Special")
 @export var use_special:bool
-#percentage out of 100, 100 being 100%
-@export_range(1,100) var likliehood:int
-@export var poison:bool
-@export var poison_per_round:int
-@export var blind:bool
-@export var stun:bool
-@export_range(1,99) var turns:int
-@export var status_icon: Texture
-
-@export_subgroup("User")
-@export var user_status:bool
-@export var hp_regen:int
-@export var mp_regen:int
-@export var tp_regen:int
-
-@export var str_boost:int
-@export var mag_boost:int
-@export var def_boost:int
-@export var agi_boost:int
+@export var enemy_status:Status
+@export_range(1,100) var likliehood:int = 100
+@export var user_status:Status

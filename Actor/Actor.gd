@@ -107,16 +107,23 @@ func _finish_attack():
 
 func is_stunned() -> bool:
 	for status in statuses:
-		if status.type == "stun":
+		if status.stun == true:
 			return true
 	return false
 func has_status(type:String) -> bool:
 	for status in statuses:
-		if status.type == type:
+		if status.status_name == type:
 			return true
 	return false
 func get_status(type:String) -> Dictionary:
 	for status in statuses:
-		if status.type == type:
+		if status.status_name == type:
 			return status
 	return {type:"Null"}
+	
+func _get_stun() -> Dictionary:
+	for status in statuses:
+		if status.stun == true:
+			return status
+	return {"Null":"Null"}
+	

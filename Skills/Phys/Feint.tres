@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=5 format=3 uid="uid://b76sgumww1fg3"]
+
+[ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Status.gd" id="1_0xmku"]
+[ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Skill.gd" id="1_2pqr8"]
+[ext_resource type="Texture2D" uid="uid://ddlhdiu7q17s3" path="res://Godot-Turn-Based-Battle-System-3D/debuff.svg" id="2_ghb70"]
+
+[sub_resource type="Resource" id="Resource_30aay"]
+script = ExtResource("1_0xmku")
+status_name = "Feinted"
+status_icon = ExtResource("2_ghb70")
+turns = 4
+hp_tick_per_round = 0
+mp_tick_per_round = 0
+tp_tick_per_round = 0
+blind = false
+stun = false
+accuracy_debuff = 50
+hp_regen = 0
+mp_regen = 0
+tp_regen = 0
+str_boost = 0
+mag_boost = 0
+def_boost = 0
+agi_boost = 0
+
+[resource]
+script = ExtResource("1_2pqr8")
+skill_name = "Feint"
+mp_cost = 0
+hp_cost = 0
+tp_cost = 0
+mp_gain = 0
+tp_gain = 4
+times = 1
+target = 0
+scope = 0
+stat_modifier = 0
+attack_strength = 1.0
+user_animation = "attack"
+target_animation = ""
+timer = 1.0
+auto_spawn_particle = false
+target_anim_scope = 0
+particle_pos_offset = Vector3(0, 0, 0)
+use_special = false
+enemy_status = SubResource("Resource_30aay")
+likliehood = 0

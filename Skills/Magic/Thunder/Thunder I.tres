@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Skill" load_steps=3 format=3 uid="uid://cu8we7gu1brj8"]
 
+[ext_resource type="Resource" uid="uid://bsgen1e1qbjgi" path="res://Godot-Turn-Based-Battle-System-3D/Status/Shock.tres" id="1_4vejd"]
 [ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Skill.gd" id="1_hvluc"]
-[ext_resource type="Texture2D" uid="uid://ddlhdiu7q17s3" path="res://Godot-Turn-Based-Battle-System-3D/debuff.svg" id="2_nv4g1"]
 
 [resource]
 script = ExtResource("1_hvluc")
@@ -23,18 +23,5 @@ auto_spawn_particle = false
 target_anim_scope = 0
 particle_pos_offset = Vector3(0, 0, 0)
 use_special = true
-likliehood = 50
-poison = false
-poison_per_round = 0
-blind = false
-stun = true
-turns = 2
-status_icon = ExtResource("2_nv4g1")
-user_status = false
-hp_regen = 0
-mp_regen = 0
-tp_regen = 0
-str_boost = 0
-mag_boost = 0
-def_boost = 0
-agi_boost = 0
+enemy_status = ExtResource("1_4vejd")
+likliehood = 100

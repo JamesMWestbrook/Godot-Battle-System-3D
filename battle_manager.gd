@@ -67,7 +67,7 @@ func _start_turn() -> void:
 				#apply stat
 				pass
 				#lower tick
-				if status.type != "stun": #down at else statement for is_stunned()
+				if status.stun == false: #down at else statement for is_stunned()
 					status.turns -= 1
 				#if tick 0 then remove it
 				if status.turns == 0:
@@ -87,9 +87,10 @@ func _start_turn() -> void:
 			turn_order[0].ai_script._act()
 	else: #Is stunned
 		print(turn_order[0].actor_name + " is stunned")
-		turn_order[0].get_status("stun").turns -= 1
-		if turn_order[0].get_status("stun").turns <= 0:
-			turn_order[0].statuses.erase(turn_order[0].get_status("stun"))
+		var status = turn_order[0]._get_stun()
+		status.turns -= 1
+		if status.turns <= 0:
+			turn_order[0].statuses.erase(status)
 		_end_turn()
 
 func _player_turn()-> void:
@@ -118,7 +119,7 @@ func _use_skill(skill:Skill, enemy: Actor)-> void:
 		current_actor.tp += current_skill.tp_gain
 		
 		if skill.user_status:
-			_add_status(current_actor, skill)
+			_add_status(current_actor, skill.user_status)
 		
 		await current_skill.timer
 		for i in current_skill.times:
@@ -129,26 +130,26 @@ func _use_skill(skill:Skill, enemy: Actor)-> void:
 			if current_skill.scope == Skill.SCOPE.RANDOM:
 				var index = randi_range(0,enemies.size() - 1)
 				current_target = enemies[index]	#buff/debuff
-				if skill.use_special and !skill.user_status:
+				if is_instance_valid(skill.enemy_status):
 					if randi_range(0,100) <= skill.likliehood:
-						_add_status(current_target, skill)
+						_add_status(current_target, skill.enemy_status)
 			elif current_skill.scope == Skill.SCOPE.ALL:
 				printt(current_actor.actor_name, "uses", skill.skill_name,"on","All")
 				for e in enemies:
 					current_target = e
 					e._hit()
 						#buff/debuff
-					if skill.use_special and !skill.user_status:
+					if is_instance_valid(skill.enemy_status):
 						if randi_range(0,100) <= skill.likliehood:
-							_add_status(current_target, skill)
+							_add_status(current_target, skill.enemy_status)
 			
 			else: #Not ALL
 				printt(current_actor.actor_name, "uses", skill.skill_name,"on",current_target.actor_name)
 				current_target._hit()
 					#buff/debuff
-				if skill.use_special and !skill.user_status:
+				if is_instance_valid(skill.enemy_status):
 					if randi_range(0,100) <= skill.likliehood:
-						_add_status(current_target, skill)
+						_add_status(current_target, skill.enemy_status)
 		current_target._finish_attack()
 		return
 	var animation:String = current_skill.user_animation
@@ -209,37 +210,35 @@ func _show_particle():
 	if !current_target.is_player:
 		particle.global_position = current_target.global_position
 		
-func _add_status(actor:Actor ,skill:Skill):
-	var status:Dictionary
-	status.turns = 2
+func _add_status(actor:Actor ,status_res:Status):
+	var new_status:Dictionary
+	new_status.turns = status_res.turns
+	new_status.status_name = status_res.status_name
 	
-	if skill.poison:
-		status.type = "poison"
-		status.tick = skill.poison_per_round
-	elif skill.blind:
-		status.type = "blind"
-	elif skill.stun:
-		status.type = "stun"
-	else:
-		status.type = "Buff"
-	status.hp = skill.hp_regen
-	status.mp = skill.mp_regen
-	status.tp = skill.tp_regen
-	status.str = skill.str_boost
-	status.mag = skill.mag_boost
-	status.def = skill.def_boost
-	status.agi = skill.agi_boost
+	if new_status.status_name == "":
+		printerr("NEEDS A STATUS NAME")
 	
-	if actor.has_status(status.type):
-		pass
+	new_status.hp_tick = status_res.hp_tick_per_round
+	new_status.mp_tick = status_res.mp_tick_per_round
+	new_status.tp_tick = status_res.tp_tick_per_round
+	new_status.blind = status_res.blind
+	new_status.stun = status_res.stun
+	
+	new_status.str = status_res.str_boost
+	new_status.mag = status_res.mag_boost
+	new_status.def = status_res.def_boost
+	new_status.agi = status_res.agi_boost
+	
+	if actor.has_status(new_status.status_name):
+		return
 	else:
-		_apply_status_stats(actor, status)
-		actor.statuses.append(status)
+		_apply_status_stats(actor, new_status)
+		actor.statuses.append(new_status)
 	
 	if actor.is_player:
 		var texture = TextureRect.new()
-		texture.texture = skill.status_icon
-		texture.name = skill.skill_name
+		texture.texture = new_status.status_icon
+		texture.name = new_status.status_name
 		actor.actor_box.statuses.add_child(texture)
 	else:
 		var test_child:TextureRect = TextureRect.new()
