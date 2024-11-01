@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Status" load_steps=2 format=3 uid="uid://nslp28s2t7nv"]
+
+[ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Status.gd" id="1_7wux4"]
+
+[resource]
+script = ExtResource("1_7wux4")
+status_name = "SpeedUp"
+turns = 2
+hp_tick_per_round = 0
+mp_tick_per_round = 0
+tp_tick_per_round = 0
+blind = false
+stun = false
+accuracy_debuff = 100
+hp_regen = 0
+mp_regen = 0
+tp_regen = 0
+str_boost = 0
+mag_boost = 0
+def_boost = 0
+agi_boost = 5

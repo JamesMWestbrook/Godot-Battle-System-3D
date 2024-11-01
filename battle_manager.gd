@@ -18,7 +18,7 @@ var enemies:Array[Actor]#all dead = battle over
 var viable_actors:Array[Actor]
 var turn_order:Array[Actor]
 func sort_agility(a:Actor,b:Actor) -> bool:
-	if a.agi > b.agi:
+	if a.get_agi() > b.get_agi():
 		return true
 	return false
 
@@ -72,6 +72,7 @@ func _start_turn() -> void:
 				#if tick 0 then remove it
 				if status.turns == 0:
 					actor.statuses.erase(status)
+					_remove_status_stats(actor,status)
 		turn_order.append_array(viable_actors)
 		#restart the round
 		turn_order.sort_custom(sort_agility)
@@ -118,7 +119,7 @@ func _use_skill(skill:Skill, enemy: Actor)-> void:
 		current_actor.mp += current_skill.mp_gain
 		current_actor.tp += current_skill.tp_gain
 		
-		if skill.user_status:
+		if is_instance_valid(skill.user_status):
 			_add_status(current_actor, skill.user_status)
 		
 		await current_skill.timer
@@ -229,6 +230,8 @@ func _add_status(actor:Actor ,status_res:Status):
 	new_status.def = status_res.def_boost
 	new_status.agi = status_res.agi_boost
 	
+	new_status.status_icon = status_res.status_icon
+	
 	if actor.has_status(new_status.status_name):
 		return
 	else:
@@ -242,7 +245,7 @@ func _add_status(actor:Actor ,status_res:Status):
 		actor.actor_box.statuses.add_child(texture)
 	else:
 		var test_child:TextureRect = TextureRect.new()
-		test_child.texture = load("res://Godot-Turn-Based-Battle-System-3D/debuff.svg")
+		test_child.texture = new_status.status_icon
 		actor.status_grid.add_child(test_child)
 		
 func _apply_status_stats(actor:Actor ,status:Dictionary) -> void:
