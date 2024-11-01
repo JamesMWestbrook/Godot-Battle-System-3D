@@ -71,6 +71,7 @@ enum TARGET_ANIM_SCOPE{
 @export var status_icon: Texture
 
 @export_subgroup("User")
+@export var user_status:bool
 @export var hp_regen:int
 @export var mp_regen:int
 @export var tp_regen:int

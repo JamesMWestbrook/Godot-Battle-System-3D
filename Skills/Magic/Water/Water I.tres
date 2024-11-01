@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Skill" load_steps=2 format=3 uid="uid://dvitom1nnhajn"]
+[gd_resource type="Resource" script_class="Skill" load_steps=3 format=3 uid="uid://dvitom1nnhajn"]
 
 [ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Skill.gd" id="1_572dw"]
+[ext_resource type="Texture2D" uid="uid://dck1exmf846l4" path="res://Godot-Turn-Based-Battle-System-3D/buff.svg" id="2_5evw6"]
 
 [resource]
 script = ExtResource("1_572dw")
@@ -21,3 +22,19 @@ timer = 1.0
 auto_spawn_particle = false
 target_anim_scope = 0
 particle_pos_offset = Vector3(0, 0, 0)
+use_special = false
+likliehood = 0
+poison = false
+poison_per_round = 0
+blind = false
+stun = false
+turns = 0
+status_icon = ExtResource("2_5evw6")
+user_status = false
+hp_regen = 0
+mp_regen = 0
+tp_regen = 0
+str_boost = 0
+mag_boost = 0
+def_boost = 0
+agi_boost = 5

@@ -30,6 +30,7 @@ blind = false
 stun = true
 turns = 2
 status_icon = ExtResource("2_nv4g1")
+user_status = false
 hp_regen = 0
 mp_regen = 0
 tp_regen = 0

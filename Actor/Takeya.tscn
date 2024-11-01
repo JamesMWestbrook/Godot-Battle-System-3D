@@ -32,6 +32,7 @@ poison_per_round = 0
 blind = false
 stun = false
 turns = 0
+user_status = false
 hp_regen = 0
 mp_regen = 0
 tp_regen = 0

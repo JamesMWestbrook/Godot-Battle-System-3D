@@ -67,7 +67,7 @@ func _start_turn() -> void:
 				#apply stat
 				pass
 				#lower tick
-				if status.type != "stun":
+				if status.type != "stun": #down at else statement for is_stunned()
 					status.turns -= 1
 				#if tick 0 then remove it
 				if status.turns == 0:
@@ -117,8 +117,10 @@ func _use_skill(skill:Skill, enemy: Actor)-> void:
 		current_actor.mp += current_skill.mp_gain
 		current_actor.tp += current_skill.tp_gain
 		
-		await current_skill.timer
+		if skill.user_status:
+			_add_status(current_actor, skill)
 		
+		await current_skill.timer
 		for i in current_skill.times:
 			if current_skill.sound_effect:
 				audio_stream_player.stream = current_skill.sound_effect
@@ -127,7 +129,7 @@ func _use_skill(skill:Skill, enemy: Actor)-> void:
 			if current_skill.scope == Skill.SCOPE.RANDOM:
 				var index = randi_range(0,enemies.size() - 1)
 				current_target = enemies[index]	#buff/debuff
-				if skill.use_special:
+				if skill.use_special and !skill.user_status:
 					if randi_range(0,100) <= skill.likliehood:
 						_add_status(current_target, skill)
 			elif current_skill.scope == Skill.SCOPE.ALL:
@@ -136,7 +138,7 @@ func _use_skill(skill:Skill, enemy: Actor)-> void:
 					current_target = e
 					e._hit()
 						#buff/debuff
-					if skill.use_special:
+					if skill.use_special and !skill.user_status:
 						if randi_range(0,100) <= skill.likliehood:
 							_add_status(current_target, skill)
 			
@@ -144,7 +146,7 @@ func _use_skill(skill:Skill, enemy: Actor)-> void:
 				printt(current_actor.actor_name, "uses", skill.skill_name,"on",current_target.actor_name)
 				current_target._hit()
 					#buff/debuff
-				if skill.use_special:
+				if skill.use_special and !skill.user_status:
 					if randi_range(0,100) <= skill.likliehood:
 						_add_status(current_target, skill)
 		current_target._finish_attack()
@@ -218,7 +220,8 @@ func _add_status(actor:Actor ,skill:Skill):
 		status.type = "blind"
 	elif skill.stun:
 		status.type = "stun"
-	 
+	else:
+		status.type = "Buff"
 	status.hp = skill.hp_regen
 	status.mp = skill.mp_regen
 	status.tp = skill.tp_regen
