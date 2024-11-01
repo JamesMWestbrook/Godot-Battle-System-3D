@@ -12,6 +12,9 @@ class_name BattleUI
 @onready var skills_container: GridContainer = $ScrollContainer/SkillsItems
 @onready var targets_container: VBoxContainer = $Targets
 
+@onready var actor_texture: TextureRect = $ActorTexture
+@onready var texture_anim: AnimationPlayer = $ActorTexture/AnimationPlayer
+
 #BUttons
 @onready var attack_button: Button = $Actions/Attack
 @onready var skills: Button = $Actions/Skills
@@ -59,6 +62,8 @@ func _process(delta: float) -> void:
 func _menu(actor:Actor) -> void:
 	actions_container.show()
 	attack_button.grab_focus()
+	actor_texture.texture = battle_manager.current_actor.current_texture
+	texture_anim.play("FadeIn")
 	
 #Skills button selected
 func _on_skills_button_down() -> void:
@@ -91,6 +96,7 @@ func _select_skill(skill:Skill)-> void:
 			index += 1
 			
 			button.button_down.connect(battle_manager._use_skill.bind(skill, enemy))
+			button.button_down.connect(_fade_out)
 	elif skill.scope == Skill.SCOPE.ALL:
 		#spawn button per enemy
 		var button:Button = Button.new()
@@ -102,6 +108,7 @@ func _select_skill(skill:Skill)-> void:
 		
 		#current target is just placeholder bc it needs second argument
 		button.button_down.connect(battle_manager._use_skill.bind(skill, battle_manager.current_target))
+		button.button_down.connect(_fade_out)
 	elif skill.scope == Skill.SCOPE.RANDOM:
 		#spawn button per enemy
 		var button:Button = Button.new()
@@ -114,10 +121,12 @@ func _select_skill(skill:Skill)-> void:
 			
 		#current target is just placeholder bc it needs second argument
 		button.button_down.connect(battle_manager._use_skill.bind(skill, battle_manager.current_target))
+		button.button_down.connect(_fade_out)
 	targets_container.show()
 	
-	#choose enemy
-
+func _fade_out():
+	texture_anim.play("FadeOut")
+	
 func _clear_lists() -> void:
 	for i in targets_container.get_children():
 		i.queue_free()

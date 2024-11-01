@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bhfmkuax1n6g8"]
 
 [ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Actor.gd" id="1_ta57a"]
-[ext_resource type="Texture2D" uid="uid://cg6rjbj1cdmd6" path="res://Godot-Turn-Based-Battle-System-3D/icon.svg" id="2_tu8pk"]
+[ext_resource type="Texture2D" uid="uid://8baj6j15o06y" path="res://Godot-Turn-Based-Battle-System-3D/Magic Heroes by Captainskeleto 1_11.png" id="2_0837o"]
 [ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Skill.gd" id="2_y010m"]
 [ext_resource type="Resource" uid="uid://dvitom1nnhajn" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Water/Water I.tres" id="4_8auhg"]
 [ext_resource type="Resource" uid="uid://cu8we7gu1brj8" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Thunder/Thunder I.tres" id="5_30fuw"]
@@ -32,7 +32,7 @@ likliehood = 100
 script = ExtResource("1_ta57a")
 actor_name = "Takeya"
 nickname = "Master"
-texture = ExtResource("2_tu8pk")
+texture = ExtResource("2_0837o")
 max_hp = 30
 max_mp = 50
 str = 3

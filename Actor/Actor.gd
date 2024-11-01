@@ -16,6 +16,7 @@ var battle_manager:BattleManager
 @export var actor_name:String
 @export var nickname:String
 @export var texture:Texture
+var current_texture:Texture
 
 
 @export_group("Stats")
@@ -84,7 +85,7 @@ func _ready() -> void:
 		$AnimationPlayer.play(Constants.IDLE_ANIM)
 		hp_label = $"HP Label"
 		hp_label.text = str(hp)
-	
+	current_texture = texture
 
 func _hit() -> void:
 	battle_manager._skill_stats()

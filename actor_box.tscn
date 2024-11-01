@@ -7,6 +7,7 @@
 script = ExtResource("1_k7s3r")
 
 [node name="image" type="TextureRect" parent="."]
+visible = false
 layout_mode = 2
 texture = ExtResource("1_c6kex")
 
