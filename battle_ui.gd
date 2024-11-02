@@ -16,9 +16,9 @@ class_name BattleUI
 @onready var texture_anim: AnimationPlayer = $ActorTexture/AnimationPlayer
 
 #BUttons
-@onready var attack_button: Button = $Actions/Attack
-@onready var skills: Button = $Actions/Skills
-@onready var items: Button = $Actions/Items
+@onready var actions_grid: VBoxContainer = $Actions
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -40,7 +40,6 @@ func _init_boxes() -> void:
 		actor_container.show()
 		box._init_box(actor)
 		
-	attack_button.button_down.connect(_select_skill.bind(battle_manager.default_attack))
 	
 	for enemy in battle_manager.enemies:
 		var grid = GridContainer.new()
@@ -60,10 +59,23 @@ func _process(delta: float) -> void:
 
 
 func _menu(actor:Actor) -> void:
+	_actions()
 	actions_container.show()
-	attack_button.grab_focus()
 	actor_texture.texture = battle_manager.current_actor.current_texture
 	texture_anim.play("FadeIn")
+	
+func _actions() -> void:
+	var attack_button = Button.new()
+	attack_button.button_down.connect(_select_skill.bind(battle_manager.default_attack))
+	attack_button.text = "Attack"
+	
+	var skills_button = Button.new()
+	skills_button.button_down.connect(_on_skills_button_down)
+	skills_button.text = "Skills"
+	
+	actions_container.add_child(attack_button)
+	actions_container.add_child(skills_button)
+	attack_button.grab_focus()
 	
 #Skills button selected
 func _on_skills_button_down() -> void:
@@ -83,7 +95,6 @@ func _on_skills_button_down() -> void:
 func _select_skill(skill:Skill)-> void:
 	actions_container.hide()
 	skills_container.hide()
-	items.hide()
 	var index:int = 0
 	if skill.scope == Skill.SCOPE.SINGLE:
 		for enemy in battle_manager.enemies:
@@ -126,6 +137,8 @@ func _select_skill(skill:Skill)-> void:
 	
 func _fade_out():
 	texture_anim.play("FadeOut")
+	for child in actions_container.get_children():
+		child.queue_free()
 	
 func _clear_lists() -> void:
 	for i in targets_container.get_children():
