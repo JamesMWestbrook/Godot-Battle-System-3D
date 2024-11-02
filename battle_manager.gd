@@ -75,6 +75,10 @@ func _start_turn() -> void:
 					if status.has("changed_texture"):
 						actor.current_texture = actor.texture
 					_remove_status_stats(actor,status)
+					if actor.is_player:
+						pass
+					else:#Is enemy
+						actor.status_grid.get_child(status.status_name).queue_free()
 		turn_order.append_array(viable_actors)
 		#restart the round
 		turn_order.sort_custom(sort_agility)
@@ -94,6 +98,10 @@ func _start_turn() -> void:
 		status.turns -= 1
 		if status.turns <= 0:
 			turn_order[0].statuses.erase(status)
+			if current_actor.is_player:
+				pass
+			else:#Is enemy
+				current_actor.status_grid.get_node(status.status_name).queue_free()
 		_end_turn()
 
 func _player_turn()-> void:
@@ -249,8 +257,9 @@ func _add_status(actor:Actor ,status_res:Status):
 		if is_instance_valid(status_res.texture_change):
 			actor.current_texture = status_res.texture_change
 			new_status.changed_texture = true
-	else:
+	else:#Is enemy
 		var test_child:TextureRect = TextureRect.new()
+		test_child.name = new_status.status_name
 		test_child.texture = new_status.status_icon
 		actor.status_grid.add_child(test_child)
 		
