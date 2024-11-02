@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="Status" load_steps=3 format=3 uid="uid://bsgen1e1qbjgi"]
+[gd_resource type="Resource" script_class="Status" load_steps=4 format=3 uid="uid://bsgen1e1qbjgi"]
 
+[ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Skill.gd" id="1_1bneg"]
 [ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Status.gd" id="1_rxidh"]
 [ext_resource type="Texture2D" uid="uid://ddlhdiu7q17s3" path="res://Godot-Turn-Based-Battle-System-3D/debuff.svg" id="2_rmd4x"]
 
@@ -7,7 +8,7 @@
 script = ExtResource("1_rxidh")
 status_name = "Shocked"
 status_icon = ExtResource("2_rmd4x")
-turns = 2
+turns = 3
 hp_tick_per_round = 0
 mp_tick_per_round = 0
 tp_tick_per_round = 0
@@ -21,3 +22,4 @@ str_boost = 0
 mag_boost = 0
 def_boost = 0
 agi_boost = 0
+enable_skills = Array[ExtResource("1_1bneg")]([])

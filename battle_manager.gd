@@ -71,19 +71,20 @@ func _start_turn() -> void:
 	
 	current_actor = turn_order[0]
 	print(current_actor.actor_name + "'s turn")
-	if !turn_order[0].is_stunned():
-		if turn_order[0].is_player:
+	var is_stunned:bool = current_actor.is_stunned()
+	if !is_stunned:
+		if current_actor.is_player:
 			_player_turn()
 		else:#Run AI
-			turn_order[0].ai_script._act()
+			current_actor.ai_script._act()
 	else: #Is stunned
-		print(turn_order[0].actor_name + " is stunned")
-		var status = turn_order[0]._get_stun()
+		print(current_actor.actor_name + " is stunned")
+		var status = current_actor._get_stun()
 		status.turns -= 1
 		if status.turns <= 0:
-			turn_order[0].statuses.erase(status)
+			current_actor.statuses.erase(status)
 			if current_actor.is_player:
-				pass
+				current_actor.actor_box.statuses.get_node(status.status_name).queue_free()
 			else:#Is enemy
 				current_actor.status_grid.get_node(status.status_name).queue_free()
 		_end_turn()
@@ -147,10 +148,18 @@ func _use_skill(skill:Skill, enemy: Actor)-> void:
 						_add_status(current_target, skill.enemy_status)
 		current_target._finish_attack()
 		return
+	printt(current_actor.actor_name, "uses", skill.skill_name,"on",enemy.actor_name)
+	
 	var animation:String = current_skill.user_animation
+
 	if animation.is_empty():
 		animation = Constants.ATTACK_ANIM
 	current_actor.animation_player.play(animation)
+	await current_actor.animation_player.animation_finished
+	if is_instance_valid(skill.enemy_status):
+		if randi_range(0,100) <= skill.likliehood:
+			_add_status(current_target, skill.enemy_status)
+
 	
 func _skill_stats():
 	if current_actor.is_player:
@@ -274,13 +283,13 @@ func _status_ticks() -> void:
 			if status.stun == false: #down at else statement for is_stunned()
 				status.turns -= 1
 			#if tick 0 then remove it
-			if status.turns == 0:
+			if status.turns == -1:
 				actor.statuses.erase(status)
 				if status.has("changed_texture"):
 					actor.current_texture = actor.texture
 				_remove_status_stats(actor,status)
 				if actor.is_player:
-					pass
+					actor.actor_box.statuses.get_node(status.status_name).queue_free()
 				else:#Is enemy
 					actor.status_grid.get_child(status.status_name).queue_free()
 
