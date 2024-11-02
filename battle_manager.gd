@@ -62,28 +62,12 @@ func _start_turn() -> void:
 	#calculate turn order, after an actor acts, they are removed from turn order
 	if turn_order.is_empty():
 		#check stats, apply stats, lower tick
-		for actor in viable_actors:
-			for status in actor.statuses:
-				#apply stat
-				pass
-				#lower tick
-				if status.stun == false: #down at else statement for is_stunned()
-					status.turns -= 1
-				#if tick 0 then remove it
-				if status.turns == 0:
-					actor.statuses.erase(status)
-					if status.has("changed_texture"):
-						actor.current_texture = actor.texture
-					_remove_status_stats(actor,status)
-					if actor.is_player:
-						pass
-					else:#Is enemy
-						actor.status_grid.get_child(status.status_name).queue_free()
+		_status_ticks()
+		
 		turn_order.append_array(viable_actors)
 		#restart the round
 		turn_order.sort_custom(sort_agility)
 		
-		_run_statuses()
 	
 	current_actor = turn_order[0]
 	print(current_actor.actor_name + "'s turn")
@@ -250,8 +234,14 @@ func _add_status(actor:Actor ,status_res:Status):
 	
 	if actor.is_player:
 		var texture = TextureRect.new()
+		texture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		texture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
+		texture.custom_minimum_size = Vector2(36,36)
+		
 		texture.texture = new_status.status_icon
 		texture.name = new_status.status_name
+		if !is_instance_valid(status_res.status_icon):
+			printerr("No texture for status " + status_res.status_name)
 		actor.actor_box.statuses.add_child(texture)
 		
 		if is_instance_valid(status_res.texture_change):
@@ -275,6 +265,25 @@ func _remove_status_stats(actor:Actor ,status:Dictionary) -> void:
 	actor.def_mod -= status.def
 	actor.agi_mod -= status.agi
 
-func _run_statuses() -> void:
+func _status_ticks() -> void:
+	for actor in viable_actors:
+		for status in actor.statuses:
+			#apply stat
+			pass
+			#lower tick
+			if status.stun == false: #down at else statement for is_stunned()
+				status.turns -= 1
+			#if tick 0 then remove it
+			if status.turns == 0:
+				actor.statuses.erase(status)
+				if status.has("changed_texture"):
+					actor.current_texture = actor.texture
+				_remove_status_stats(actor,status)
+				if actor.is_player:
+					pass
+				else:#Is enemy
+					actor.status_grid.get_child(status.status_name).queue_free()
+
+func _run_status(status:Dictionary) -> void:
 	#Status is being run
 	pass

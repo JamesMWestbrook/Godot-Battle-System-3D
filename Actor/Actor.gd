@@ -69,7 +69,7 @@ var eva_mod:int
 ##Where you set for Takeya if he's learned a skill, everyone else is learned by default
 @export var skill_learned:Array[String]
 @export var is_player:bool = false
-var actor_box:ActorBox
+var actor_box
 var all_learned:bool
 @export_group("AI")
 @export var ai_script:ActorAI

@@ -33,10 +33,10 @@ func _init_boxes() -> void:
 	#spawn the actor's hp and mp bars
 	for actor in battle_manager.heroes:
 		var box = actor_box.instantiate() as ActorBox
+		actor_container.add_child(box)
 		actor.actor_box = box
 		box.name = actor.actor_name
 		
-		actor_container.add_child(box)
 		actor_container.show()
 		box._init_box(actor)
 		

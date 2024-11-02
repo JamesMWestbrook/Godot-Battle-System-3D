@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="Status" load_steps=4 format=3 uid="uid://nslp28s2t7nv"]
+[gd_resource type="Resource" script_class="Status" load_steps=5 format=3 uid="uid://nslp28s2t7nv"]
 
 [ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Status.gd" id="1_7wux4"]
 [ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Skill.gd" id="1_sa6s6"]
 [ext_resource type="Texture2D" uid="uid://b0r4xge3pvnac" path="res://Godot-Turn-Based-Battle-System-3D/Magic Heroes by Captainskeleto 1_10.png" id="2_m25xy"]
+[ext_resource type="Texture2D" uid="uid://dck1exmf846l4" path="res://Godot-Turn-Based-Battle-System-3D/buff.svg" id="3_hwh1e"]
 
 [resource]
 script = ExtResource("1_7wux4")
 status_name = "SpeedUp"
+status_icon = ExtResource("3_hwh1e")
 turns = 2
 hp_tick_per_round = 0
 mp_tick_per_round = 0
