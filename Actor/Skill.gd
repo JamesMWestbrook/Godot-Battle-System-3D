@@ -4,7 +4,7 @@ class_name Skill
 
 @export var icon:Texture
 @export var skill_name:String
-
+@export_multiline var description:String
 @export var mp_cost:int
 @export var hp_cost:int
 @export var tp_cost:int

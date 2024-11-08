@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_hvluc")
 skill_name = "Thunder I"
+description = ""
 mp_cost = 0
 hp_cost = 0
 tp_cost = 0

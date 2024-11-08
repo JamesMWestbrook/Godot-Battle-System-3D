@@ -10,6 +10,7 @@
 [sub_resource type="Resource" id="Resource_7k375"]
 script = ExtResource("2_3cv3j")
 skill_name = "SwordAttack"
+description = ""
 mp_cost = 0
 hp_cost = 0
 tp_cost = 0

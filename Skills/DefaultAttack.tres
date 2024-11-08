@@ -7,6 +7,7 @@
 [resource]
 script = ExtResource("1_b30ra")
 skill_name = "Attack"
+description = ""
 mp_cost = 0
 hp_cost = 0
 tp_cost = 0

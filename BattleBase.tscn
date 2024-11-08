@@ -17,7 +17,7 @@ battle_ui = NodePath("../Battle_UI")
 [node name="Heroes" type="Node3D" parent="."]
 
 [node name="Enemies" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.6013, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.71969, 0, -10.321)
 
 [node name="Battle_UI" parent="." node_paths=PackedStringArray("battle_manager") instance=ExtResource("2_bqxrr")]
 battle_manager = NodePath("../BattleManager")

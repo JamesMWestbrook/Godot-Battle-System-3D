@@ -88,7 +88,8 @@ func _on_skills_button_down() -> void:
 			_skill_button(skill)
 			
 	#Grab first skill
-	skills_container.get_child(0).grab_focus()
+	if skills_container.get_children().size() > 0:
+		skills_container.get_child(0).grab_focus()
 
 	
 #Player has chosen a skill to use, now they need to specify an enemy.

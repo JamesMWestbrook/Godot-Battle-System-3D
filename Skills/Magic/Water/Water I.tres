@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_572dw")
 skill_name = "Water I"
+description = ""
 mp_cost = 15
 hp_cost = 0
 tp_cost = 0

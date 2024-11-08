@@ -90,18 +90,25 @@ func _ready() -> void:
 func _hit() -> void:
 	battle_manager._skill_stats()
 
-func _show_damage(value:int):
-	pass
-	if !is_player:
+func _show_damage(value:int) -> void:
+	if is_player:
+		var label:Label = Label.new()
+		label.text ="-" + str(value)
+		add_child(label)
+		label.global_position = actor_box.statuses.global_position
+		await get_tree().create_timer(0.3).timeout
+		label.queue_free()
+	else: #enemy
 		damage_label.text = str(value)
 		label_anim.play(Constants.DAMAGE_LABEL_ANIM)
 		await get_tree().process_frame
 		hp_label.text = str(hp)
+	
 
-func _show_particle_animation():
+func _show_particle_animation() -> void:
 	battle_manager._show_particle()
 	
-func _finish_attack():
+func _finish_attack() -> void:
 	battle_manager._end_turn()
 	if !is_player:
 		animation_player.play(Constants.IDLE_ANIM)

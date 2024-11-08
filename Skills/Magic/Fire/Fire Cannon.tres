@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=2 format=3 uid="uid://crffkbh3ynsqm"]
+
+[ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Skill.gd" id="1_4l6yq"]
+
+[resource]
+script = ExtResource("1_4l6yq")
+skill_name = "Fire Cannon"
+description = ""
+mp_cost = 0
+hp_cost = 0
+tp_cost = 0
+mp_gain = 0
+tp_gain = 4
+times = 1
+target = 0
+scope = 0
+stat_modifier = 0
+attack_strength = 1.0
+user_animation = "attack"
+target_animation = ""
+timer = 1.0
+auto_spawn_particle = false
+target_anim_scope = 0
+particle_pos_offset = Vector3(0, 0, 0)
+use_special = false
+likliehood = 100

@@ -67,12 +67,14 @@ func _start_turn() -> void:
 		turn_order.append_array(viable_actors)
 		#restart the round
 		turn_order.sort_custom(sort_agility)
-		
+	
+	if _is_party_dead():
+		battle_lost.emit()
 	
 	current_actor = turn_order[0]
 	print(current_actor.actor_name + "'s turn")
 	var is_stunned:bool = current_actor.is_stunned()
-	if !is_stunned:
+	if !is_stunned and current_actor.hp > 0:
 		if current_actor.is_player:
 			_player_turn()
 		else:#Run AI
@@ -91,8 +93,14 @@ func _start_turn() -> void:
 
 func _player_turn()-> void:
 	battle_ui._menu(current_actor)
-
-
+	
+func _is_party_dead():
+	var all_dead:bool = true
+	for hero in heroes:
+		if hero.hp > 0:
+			all_dead = false
+	return all_dead
+	
 #Actor has used skill, run skill then proceed to next person 
 func _use_skill(skill:Skill, enemy: Actor)-> void:
 	battle_ui.targets_container.hide() 
@@ -242,7 +250,7 @@ func _add_status(actor:Actor ,status_res:Status):
 		actor.statuses.append(new_status)
 	
 	if actor.is_player:
-		var texture = TextureRect.new()
+		var texture := TextureRect.new()
 		texture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		texture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
 		texture.custom_minimum_size = Vector2(36,36)

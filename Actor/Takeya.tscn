@@ -1,34 +1,25 @@
-[gd_scene load_steps=7 format=3 uid="uid://bhfmkuax1n6g8"]
+[gd_scene load_steps=19 format=3 uid="uid://bhfmkuax1n6g8"]
 
 [ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Actor.gd" id="1_ta57a"]
 [ext_resource type="Texture2D" uid="uid://8baj6j15o06y" path="res://Godot-Turn-Based-Battle-System-3D/Magic Heroes by Captainskeleto 1_11.png" id="2_0837o"]
 [ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Skill.gd" id="2_y010m"]
-[ext_resource type="Resource" uid="uid://dvitom1nnhajn" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Water/Water I.tres" id="4_8auhg"]
-[ext_resource type="Resource" uid="uid://cu8we7gu1brj8" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Thunder/Thunder I.tres" id="5_30fuw"]
+[ext_resource type="Resource" uid="uid://cgikujdj84j6k" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Fire/Fire I.tres" id="4_gqge8"]
+[ext_resource type="Resource" uid="uid://c510pgl17ubms" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Fire/Fire II.tres" id="5_j7u6l"]
+[ext_resource type="Resource" uid="uid://bybvgid557hm" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Fire/Fire Blast.tres" id="6_82n5b"]
+[ext_resource type="Resource" uid="uid://crffkbh3ynsqm" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Fire/Fire Cannon.tres" id="7_y3dkh"]
+[ext_resource type="Resource" uid="uid://b8ys4dh6l044y" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Fire/Fire Shield.tres" id="8_3dnu7"]
+[ext_resource type="Resource" uid="uid://dahjdpnnsoabf" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Fire/Flame Sweep.tres" id="9_e0ily"]
+[ext_resource type="Resource" uid="uid://bg6qyp7rvicg" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Fire/Flametongue.tres" id="10_i6yj5"]
+[ext_resource type="Resource" uid="uid://cb6y3qc2xlx6t" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Fire/Wildfire.tres" id="11_bn65k"]
+[ext_resource type="Resource" uid="uid://dqcu2o4earhii" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Ice/Ice I.tres" id="12_o0k6s"]
+[ext_resource type="Resource" uid="uid://mw2kuuc4iqym" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Ice/Ice II.tres" id="13_iddsp"]
+[ext_resource type="Resource" uid="uid://ca2t70tbgtsum" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Ice/Ice Shield.tres" id="14_foqwo"]
+[ext_resource type="Resource" uid="uid://cb74lhoompmgo" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Ice/Ice Spike.tres" id="15_i87u8"]
+[ext_resource type="Resource" uid="uid://b336hqetp5008" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Ice/Ice Swipe.tres" id="16_x8vf8"]
+[ext_resource type="Resource" uid="uid://bjakxix1neppa" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Ice/Skewer Field.tres" id="17_41dq0"]
+[ext_resource type="Resource" uid="uid://xr6os7phyjo1" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Ice/Frigid Blade.tres" id="18_sttrt"]
 
-[sub_resource type="Resource" id="Resource_8nhy1"]
-script = ExtResource("2_y010m")
-skill_name = ""
-mp_cost = 0
-hp_cost = 0
-tp_cost = 0
-mp_gain = 0
-tp_gain = 4
-times = 1
-target = 0
-scope = 0
-stat_modifier = 0
-attack_strength = 1.0
-user_animation = "attack"
-target_animation = ""
-timer = 1.0
-auto_spawn_particle = false
-target_anim_scope = 0
-particle_pos_offset = Vector3(0, 0, 0)
-use_special = false
-likliehood = 100
-
-[node name="Actor" type="Node"]
+[node name="Takeya" type="Node"]
 script = ExtResource("1_ta57a")
 actor_name = "Takeya"
 nickname = "Master"
@@ -40,8 +31,7 @@ mag = 3
 def = 2
 agi = 2
 eva = 2
-skills = Array[ExtResource("2_y010m")]([SubResource("Resource_8nhy1"), ExtResource("4_8auhg"), ExtResource("5_30fuw")])
-skill_learned = Array[String](["Thunder I", "Water I"])
+skills = Array[ExtResource("2_y010m")]([ExtResource("4_gqge8"), ExtResource("5_j7u6l"), ExtResource("6_82n5b"), ExtResource("7_y3dkh"), ExtResource("8_3dnu7"), ExtResource("9_e0ily"), ExtResource("10_i6yj5"), ExtResource("11_bn65k"), ExtResource("12_o0k6s"), ExtResource("13_iddsp"), ExtResource("14_foqwo"), ExtResource("15_i87u8"), ExtResource("16_x8vf8"), ExtResource("17_41dq0"), ExtResource("18_sttrt")])
 is_player = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
