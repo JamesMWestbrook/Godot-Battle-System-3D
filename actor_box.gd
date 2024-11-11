@@ -4,6 +4,8 @@ class_name ActorBox
 @onready var name_label: Label = $Stats/NameLabel
 @onready var hp_value: Label = $Stats/HPBox/HPValue
 @onready var mp_value: Label = $Stats/MPBox/MPValue
+@onready var tp_value: Label = $Stats/TPBox/TPValue
+
 @onready var image: TextureRect = $image
 @onready var statuses: GridContainer = $Statuses
 
@@ -27,14 +29,16 @@ func _init_box(actor:Actor) -> void:
 	
 	_change_hp(actor)
 	_change_mp(actor)
-
+	_change_tp(actor)
 
 func _change_stats(actor:Actor):
 	_change_hp(actor)
 	_change_mp(actor)
+	_change_tp(actor)
 
 func _change_hp(actor:Actor) -> void:
 	hp_value.text = str(actor.hp) + "/" + str(actor.max_hp)
 func _change_mp(actor:Actor) -> void:
 	mp_value.text = str(actor.mp) + "/" + str(actor.max_mp)
-	
+func _change_tp(actor:Actor) -> void:
+	tp_value.text = str(actor.tp) + "/" + str(actor.max_tp)

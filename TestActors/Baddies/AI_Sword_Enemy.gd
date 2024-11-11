@@ -2,6 +2,7 @@ extends ActorAI
 
 @export var stun_skill:Skill
 
+	
 func _act() -> void:
 	super()
 	#var battle_manager = get_parent().battle_manager

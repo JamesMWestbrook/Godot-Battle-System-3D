@@ -90,9 +90,10 @@ func _ready() -> void:
 func _hit() -> void:
 	battle_manager._skill_stats()
 
-func _show_damage(value:int) -> void:
+func _show_damage(value:int, color:Color) -> void:
 	if is_player:
 		var label:Label = Label.new()
+		label.modulate = color
 		label.text ="-" + str(value)
 		add_child(label)
 		label.global_position = actor_box.statuses.global_position

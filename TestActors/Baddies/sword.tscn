@@ -109,7 +109,7 @@ _data = {
 [node name="Sword" node_paths=PackedStringArray("ai_script") instance=ExtResource("1_iujy7")]
 actor_name = "Sword"
 max_hp = 15
-str = 3
+str = 5
 mag = 2
 def = 2
 agi = 6

@@ -72,6 +72,11 @@ func _start_turn() -> void:
 		battle_lost.emit()
 	
 	current_actor = turn_order[0]
+	
+	if current_actor.hp <= 0:
+		_end_turn()
+		return
+	
 	print(current_actor.actor_name + "'s turn")
 	var is_stunned:bool = current_actor.is_stunned()
 	if !is_stunned and current_actor.hp > 0:
@@ -180,10 +185,19 @@ func _skill_stats():
 	elif current_skill.stat_modifier == Skill.STAT.MAG:
 		modifier = current_actor.get_mag()
 	var attack_strength = modifier * current_skill.attack_strength
-	var difference =  attack_strength - (current_target.get_def())
-	current_target._show_damage(difference)
-	current_target.hp -= abs(difference)
-	current_target.hp = abs(current_target.hp)
+	if current_skill.target == Skill.TARGET.HOSTILE:
+		var difference =  attack_strength - (current_target.get_def())
+		current_target._show_damage(difference, Color.WHITE)
+		current_target.hp -= abs(difference)
+		if current_target.hp < 0:
+			current_target.hp = 0
+	elif current_skill.target == Skill.TARGET.FRIENDLY:
+		var difference = attack_strength
+		current_target._show_damage(difference, Color.DARK_GREEN)
+		current_target.hp += abs(difference)
+		if current_target.hp > current_target.max_hp:
+			current_target.hp = current_target.max_hp
+	
 	if current_target.is_player:
 		current_target.actor_box._change_hp(current_target)
 	print("After attack, hp: ", current_target.hp)
