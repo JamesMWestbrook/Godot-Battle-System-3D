@@ -35,7 +35,7 @@ enum STAT{
 	MAG
 }
 @export var stat_modifier:STAT
-@export_range(0.2, 2) var attack_strength:float = 1
+@export_range(0.2, 99) var attack_strength:float = 1
 
 @export_group("Animations")
 ##Only for enemies. Leaving blank will result in it being attack.

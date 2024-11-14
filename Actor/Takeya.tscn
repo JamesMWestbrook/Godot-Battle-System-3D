@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://bhfmkuax1n6g8"]
+[gd_scene load_steps=21 format=3 uid="uid://bhfmkuax1n6g8"]
 
 [ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Actor.gd" id="1_ta57a"]
 [ext_resource type="Texture2D" uid="uid://8baj6j15o06y" path="res://Godot-Turn-Based-Battle-System-3D/Magic Heroes by Captainskeleto 1_11.png" id="2_0837o"]
 [ext_resource type="Script" path="res://Godot-Turn-Based-Battle-System-3D/Actor/Skill.gd" id="2_y010m"]
+[ext_resource type="Resource" uid="uid://dwfh0k2cdr7b" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Refresh.tres" id="4_2adi1"]
 [ext_resource type="Resource" uid="uid://cgikujdj84j6k" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Fire/Fire I.tres" id="4_gqge8"]
 [ext_resource type="Resource" uid="uid://c510pgl17ubms" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Fire/Fire II.tres" id="5_j7u6l"]
 [ext_resource type="Resource" uid="uid://bybvgid557hm" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Fire/Fire Blast.tres" id="6_82n5b"]
@@ -19,6 +20,29 @@
 [ext_resource type="Resource" uid="uid://bjakxix1neppa" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Ice/Skewer Field.tres" id="17_41dq0"]
 [ext_resource type="Resource" uid="uid://xr6os7phyjo1" path="res://Godot-Turn-Based-Battle-System-3D/Skills/Magic/Ice/Frigid Blade.tres" id="18_sttrt"]
 
+[sub_resource type="Resource" id="Resource_lkrfk"]
+script = ExtResource("2_y010m")
+skill_name = "DebugKill"
+description = ""
+mp_cost = 0
+hp_cost = 0
+tp_cost = 0
+mp_gain = 0
+tp_gain = 4
+times = 1
+target = 0
+scope = 0
+stat_modifier = 0
+attack_strength = 99.0
+user_animation = "attack"
+target_animation = ""
+timer = 1.0
+auto_spawn_particle = false
+target_anim_scope = 0
+particle_pos_offset = Vector3(0, 0, 0)
+use_special = false
+likliehood = 100
+
 [node name="Takeya" type="Node"]
 script = ExtResource("1_ta57a")
 actor_name = "Takeya"
@@ -31,7 +55,8 @@ mag = 3
 def = 2
 agi = 2
 eva = 2
-skills = Array[ExtResource("2_y010m")]([ExtResource("4_gqge8"), ExtResource("5_j7u6l"), ExtResource("6_82n5b"), ExtResource("7_y3dkh"), ExtResource("8_3dnu7"), ExtResource("9_e0ily"), ExtResource("10_i6yj5"), ExtResource("11_bn65k"), ExtResource("12_o0k6s"), ExtResource("13_iddsp"), ExtResource("14_foqwo"), ExtResource("15_i87u8"), ExtResource("16_x8vf8"), ExtResource("17_41dq0"), ExtResource("18_sttrt")])
+skills = Array[ExtResource("2_y010m")]([ExtResource("4_2adi1"), ExtResource("4_gqge8"), ExtResource("5_j7u6l"), ExtResource("6_82n5b"), ExtResource("7_y3dkh"), ExtResource("8_3dnu7"), ExtResource("9_e0ily"), ExtResource("10_i6yj5"), ExtResource("11_bn65k"), ExtResource("12_o0k6s"), ExtResource("13_iddsp"), ExtResource("14_foqwo"), ExtResource("15_i87u8"), ExtResource("16_x8vf8"), ExtResource("17_41dq0"), ExtResource("18_sttrt"), SubResource("Resource_lkrfk")])
+skill_learned = Array[String](["Refresh", "DebugKill"])
 is_player = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

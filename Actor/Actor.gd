@@ -3,7 +3,6 @@ class_name Actor
 #Heros/Enemies inherit from this.
 
 @onready var animation_player:AnimationPlayer = $"AnimationPlayer"
-#@onready var closeup_camera:PhantomCamera3D = $PhantomCamera3D
 @onready var damage_label: Label3D = $DamageLabel
 @onready var label_anim:AnimationPlayer = $DamageLabel/LabelAnimation
 @onready var status_marker: Node3D = $StatusMarker

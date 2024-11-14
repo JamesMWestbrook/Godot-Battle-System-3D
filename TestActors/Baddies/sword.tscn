@@ -122,19 +122,16 @@ libraries = {
 "": SubResource("AnimationLibrary_llmfh")
 }
 
-[node name="PhantomCamera3D" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.10922, 10.9977)
+[node name="DamageLabel" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.49871, 0)
+text = "-999
+"
 
 [node name="sword form" parent="." index="2" instance=ExtResource("2_4m1bw")]
 
 [node name="AI" type="Node" parent="." index="3"]
 script = ExtResource("3_ubwoh")
 stun_skill = ExtResource("6_1oinm")
-
-[node name="DamageLabel" parent="." index="4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.49871, 0)
-text = "-999
-"
 
 [node name="HP Label" type="Label3D" parent="." index="5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.27981, 0)
