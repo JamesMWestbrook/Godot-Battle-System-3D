@@ -1,15 +1,18 @@
 extends Node
 class_name BattleManager
 
+@export var timelines:Array[TimelineSlot]
+
 #You most likely want to set this on the BattleBase scene.
 @export var default_attack:Skill
 
+var turn:int
 var current_actor:Actor
 var current_skill:Skill
 var current_target:Actor
+var current_timeline:DialogicTimeline
 #Nodes
 @export var battle_ui:BattleUI
-
 #Arrays
 var heroes:Array[Actor] #all dead = game over
 var enemies:Array[Actor]#all dead = battle over
@@ -61,6 +64,12 @@ func _setup_actors()-> void:
 func _start_turn() -> void:
 	#calculate turn order, after an actor acts, they are removed from turn order
 	if turn_order.is_empty():
+		turn += 1
+		if turn_has_dialog():
+			if is_instance_valid(current_timeline):
+				await get_tree().process_frame
+				Dialogic.start(current_timeline)
+				await Dialogic.timeline_ended
 		#check stats, apply stats, lower tick
 		_status_ticks()
 		
@@ -318,3 +327,9 @@ func _status_ticks() -> void:
 func _run_status(status:Dictionary) -> void:
 	#Status is being run
 	pass
+func turn_has_dialog() -> bool:
+	for slot in timelines:
+		if turn == slot.turn:
+			current_timeline = slot.timeline
+			return true
+	return false
